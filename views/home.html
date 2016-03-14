@@ -1,0 +1,47 @@
+<div class="ng-scope">
+  <md-content class="md-padding layout-xs-column layout-row" layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="50" layout="column" class="layout-column flex-xs flex-gt-xs-50">
+      <md-card>
+        <md-card-title>
+          <md-card-title-media>
+            <div class="md-media-md card-media">
+              <img src="img/testprofile.png">
+            </div>
+          </md-card-title-media>
+          <md-card-title-text>
+            <span class="md-headline">User Name Here</span>
+            <span class="md-subhead">User Description Here</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="left center">
+          <md-button class="md-primary md-raised" ng-click="editProfile($event)" flex="50" flex-gt-md="auto">
+            Edit Profile
+          </md-button>
+        </md-card-actions>
+      </md-card>
+      <md-button class="md-primary md-raised" ng-click="createEvent($event)" flex="50" flex-gt-md="auto">
+        Create Event
+      </md-button>
+    </div>
+    <div flex-xs flex-gt-xs="50" layout="column" class="layout-column flex-xs flex-gt-xs-50 event">
+      <md-card flex="auto" flex-gt-md="auto">
+        <md-card-title>
+          <md-card-title-media>
+            <div class="md-media-md card-media">
+              <img src="img/testprofile.png">
+            </div>
+          </md-card-title-media>
+          <md-card-title-text>
+            <span class="md-headline">Event Title</span>
+            <span class="md-subhead">Event Description</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button class="md-primary md-raised" ng-click="showAdvanced($event)" flex="25" flex-gt-md="auto">
+            RSVP
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </md-content>
+</div>

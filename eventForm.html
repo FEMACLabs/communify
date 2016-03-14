@@ -1,0 +1,53 @@
+<md-dialog aria-label="Create Event"  ng-cloak>
+  <form name="createEvent" ng-model="createEvent" ng-submit="submitEvent({title: title, date: date, location: location, eventDescript: eventDescript, eventImg: eventImg})">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create Event</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_clear_black_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content class="md-no-momentum">
+          <md-input-container class="md-icon-float md-block">
+            <!-- Use floating label instead of placeholder -->
+            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+            <input ng-model="title" type="text" placeholder="Title">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block">
+            <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
+            <input ng-model="date" type="text" placeholder="Date">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block">
+            <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
+            <input ng-model="location" type="text" placeholder="Location">
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block">
+            <!-- Use floating placeholder instead of label -->
+            <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="email"></md-icon>
+            <textarea ng-model="eventDescript" cols="50" rows="3" placeholder="Description" ng-required="true"></textarea>
+          </md-input-container>
+          <!-- <md-input-container class="md-icon-float md-block"> -->
+            <md-button>
+              <label for="fileInput" class="md-raised md-primary" ng-model="eventImg">Choose File</label>
+              <input id="fileInput" type="file">
+            </md-button>
+            <md-icon md-svg-src="img/icons/ic_place_24px.svg" style="display:inline-block;"></md-icon>
+          <!-- </md-input-container> -->
+        </md-content>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-primary" type="submit">
+        Create Event
+      </md-button>
+      <span flex></span>
+      <md-button class="md-raised md-warn" ng-click="cancel()" style="margin-right:20px;">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
