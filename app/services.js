@@ -26,4 +26,19 @@ angular.module('capstoneApp')
       });
     }
   };
+}])
+
+.service('postEventService', ['$http', function($http) {
+  return {
+    submitEvent: function(anEvent) {
+      return $http.post('http://localhost:3000/events', anEvent)
+        .then(function(response) {
+          // console.log('success response');
+          return response;
+        }, function(error) {
+          // console.log('service errors');
+          return error;
+      });
+    }
+  };
 }]);

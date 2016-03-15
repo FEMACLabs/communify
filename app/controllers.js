@@ -45,9 +45,9 @@ function MainCtrl($scope, $mdDialog, $mdMedia) {
 
 }
 
-angular.module('capstoneApp').controller('DialogController', ['$scope', '$location', 'dataService', 'postUserService', DialogController]);
+angular.module('capstoneApp').controller('DialogController', ['$scope', '$location', 'dataService', 'postUserService', 'postEventService', DialogController]);
 
-function DialogController($scope, $mdDialog, $location, dataService, postUserService) {
+function DialogController($scope, $mdDialog, $location, dataService, postUserService, postEventService) {
 
   // $scope.submitProfile = function(user) {
   //   $scope.user = {
@@ -69,10 +69,15 @@ function DialogController($scope, $mdDialog, $location, dataService, postUserSer
   });
 };
 
-  $scope.submitEvent = function(event) {
-    $scope.event = event;
-    console.log($scope.event);
-  };
+  $scope.submitEvent = function(anEvent) {
+    postEventService.submitEvent(anEvent).then(function(response) {
+    console.log(response);
+    // localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
+    // vm.loggedStatus = true;
+    // $location.path('/tab/stream');
+    $mdDialog.hide();
+  });
+};
 
   $scope.hide = function() {
     $mdDialog.hide();
