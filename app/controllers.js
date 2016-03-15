@@ -1,8 +1,8 @@
 'use strict';
 
-app.controller('MainCtrl', mainCtrl);
+angular.module('capstoneApp').controller('MainCtrl', ['$scope', '$mdDialog', '$mdMedia', MainCtrl]);
 
-function mainCtrl($scope, $mdDialog, $mdMedia) {
+function MainCtrl($scope, $mdDialog, $mdMedia) {
 
   var vm = this;
 
@@ -45,17 +45,29 @@ function mainCtrl($scope, $mdDialog, $mdMedia) {
 
 }
 
-function DialogController($scope, $mdDialog) {
+angular.module('capstoneApp').controller('DialogController', ['$scope', '$location', 'dataService', 'postUserService', DialogController]);
+
+function DialogController($scope, $mdDialog, $location, dataService, postUserService) {
+
+  // $scope.submitProfile = function(user) {
+  //   $scope.user = {
+  //     name: user.name,
+  //     zip: user.zip,
+  //     description: user.userDescript
+  //   };
+  //   console.log($scope.user);
+  //   return $scope.user;
+  // };
 
   $scope.submitProfile = function(user) {
-    $scope.user = user;
-    // $scope.user = {
-    //   name: user.name,
-    //   zip: user.zip,
-    //   description: user.userDescript
-    // };
-    console.log($scope.user);
-  };
+    postUserService.submitProfile(user).then(function(response) {
+    console.log(response);
+    // localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
+    // vm.loggedStatus = true;
+    // $location.path('/tab/stream');
+    $mdDialog.hide();
+  });
+};
 
   $scope.submitEvent = function(event) {
     $scope.event = event;
@@ -71,4 +83,14 @@ function DialogController($scope, $mdDialog) {
   $scope.answer = function(answer) {
     $mdDialog.hide(answer);
   };
+}
+
+
+angular.module('capstoneApp').controller('ViewCtrl', ['$scope', '$location', 'dataService', ViewCtrl]);
+
+function ViewCtrl($scope, $location, dataService) {
+  dataService.get().then(function(data){
+    console.log(data.data[0]);
+  });
+
 }
