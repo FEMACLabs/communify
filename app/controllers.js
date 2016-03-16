@@ -92,11 +92,24 @@ function DialogController($scope, $mdDialog, $location, getUserService, postUser
 }
 
 
-angular.module('capstoneApp').controller('ViewCtrl', ['$scope', '$location', 'getUserService', ViewCtrl]);
+angular.module('capstoneApp').controller('UserCtrl', ['$scope', '$location', 'getUserService', UserCtrl]);
 
-function ViewCtrl($scope, $location, getUserService) {
+function UserCtrl($scope, $location, getUserService) {
   getUserService.get().then(function(data){
     console.log(data.data[0]);
   });
 
+}
+
+angular.module('capstoneApp').controller('EventCtrl', ['$scope', '$location', 'getEventService', EventCtrl]);
+
+function EventCtrl($scope, $location, getEventService) {
+  var vm = this;
+  vm.loadEvents = getEventService.all()
+  .then(function(eventsArr) {
+    vm.events = eventsArr.data;
+  })
+  .catch(function(err) {
+    console.err(new Error(err));
+  });
 }

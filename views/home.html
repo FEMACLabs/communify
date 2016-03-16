@@ -1,6 +1,6 @@
-<div class="ng-scope">
+<div class="ng-scope" ng-controller="MainCtrl as MC">
   <md-content class="md-padding layout-xs-column layout-row" layout-xs="column" layout="row">
-    <div flex-xs flex-gt-xs="50" layout="column" class="layout-column flex-xs flex-gt-xs-50">
+    <div flex-xs flex-gt-xs="50" layout="column" class="layout-column flex-xs flex-gt-xs-50" ng-controller="UserCtrl as UC">
       <md-card>
         <md-card-title>
           <md-card-title-media>
@@ -23,8 +23,8 @@
         Create Event
       </md-button>
     </div>
-    <div flex-xs flex-gt-xs="50" layout="column" class="layout-column flex-xs flex-gt-xs-50 event">
-      <md-card flex="auto" flex-gt-md="auto">
+    <div flex-xs flex-gt-xs="50" layout="column" class="layout-column flex-xs flex-gt-xs-50 event" ng-controller="EventCtrl as EC">
+      <md-card flex="auto" flex-gt-md="auto" ng-repeat="event in EC.events">
         <md-card-title>
           <md-card-title-media>
             <div class="md-media-md card-media">
@@ -32,8 +32,8 @@
             </div>
           </md-card-title-media>
           <md-card-title-text>
-            <span class="md-headline">Event Title</span>
-            <span class="md-subhead">Event Description</span>
+            <span class="md-headline">{{ event.title }}</span>
+            <span class="md-subhead">{{ event.date }}</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">

@@ -2,13 +2,13 @@
 
 app.config(function($routeProvider) {
   $routeProvider.when('/', {
-    templateUrl: './views/main.html',
-    controller: 'MainCtrl as MC'
+    templateUrl: './views/main.html'
+    // controller: 'MainCtrl as MC'
   }).when('/home', {
-    templateUrl: './views/home.html',
-    controller: 'MainCtrl as MC'
+    templateUrl: './views/home.html'
+    // controller: 'MainCtrl as MC'
   }).when('/users', {
-    templateUrl:'./views/home.html',
-    controller: 'ViewCtrl as VC'
+    templateUrl:'./views/home.html'
+    // controller: 'ViewCtrl as VC'
   });
 });
