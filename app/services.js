@@ -2,7 +2,7 @@
 
 angular.module('capstoneApp')
 
-.service('dataService', ['$http', function($http) {
+.service('getUserService', ['$http', function($http) {
 
   var self = {};
 
@@ -27,6 +27,31 @@ angular.module('capstoneApp')
     }
   };
 }])
+
+.service('getEventService', ['$http', function($http) {
+    this.all = function() {
+      return $http({
+        method: 'GET',
+        url: 'http://localhost:3000/events'
+      }).then(function(events) {
+        console.log(events);
+        return events;
+      }, function(response) {
+        console.error(new Error(response));
+      });
+    };
+    // this.remove = function(dream) {
+    //   dreams.splice(dreams.indexOf(dream), 1);
+    // };
+    // this.get = function(dreamId) {
+    //   for (var i = 0; i < dreams.length; i++) {
+    //     if (dreams[i].id === parseInt(dreamId)) {
+    //       return dreams[i];
+    //     }
+    //   }
+    //   return null;
+    // };
+  }])
 
 .service('postEventService', ['$http', function($http) {
   return {

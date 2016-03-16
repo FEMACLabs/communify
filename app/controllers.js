@@ -45,9 +45,9 @@ function MainCtrl($scope, $mdDialog, $mdMedia) {
 
 }
 
-angular.module('capstoneApp').controller('DialogController', ['$scope', '$location', 'dataService', 'postUserService', 'postEventService', DialogController]);
+angular.module('capstoneApp').controller('DialogController', ['$scope', '$location', 'getUserService', 'postUserService', 'postEventService', DialogController]);
 
-function DialogController($scope, $mdDialog, $location, dataService, postUserService, postEventService) {
+function DialogController($scope, $mdDialog, $location, getUserService, postUserService, postEventService) {
 
   // $scope.submitProfile = function(user) {
   //   $scope.user = {
@@ -88,14 +88,14 @@ function DialogController($scope, $mdDialog, $location, dataService, postUserSer
   $scope.answer = function(answer) {
     $mdDialog.hide(answer);
   };
-  
+
 }
 
 
-angular.module('capstoneApp').controller('ViewCtrl', ['$scope', '$location', 'dataService', ViewCtrl]);
+angular.module('capstoneApp').controller('ViewCtrl', ['$scope', '$location', 'getUserService', ViewCtrl]);
 
-function ViewCtrl($scope, $location, dataService) {
-  dataService.get().then(function(data){
+function ViewCtrl($scope, $location, getUserService) {
+  getUserService.get().then(function(data){
     console.log(data.data[0]);
   });
 
