@@ -97,8 +97,10 @@ function DialogController($scope, $route, $mdDialog, getUserService, postUserSer
 angular.module('capstoneApp').controller('UserCtrl', ['$scope', '$location', 'getUserService', UserCtrl]);
 
 function UserCtrl($scope, $location, getUserService) {
-  getUserService.get().then(function(data){
-    console.log(data.data[0]);
+  var vm = this;
+  getUserService.get().then(function(user){
+    console.log(user.data[0]);
+    vm.user = user.data[0];
   });
 
 }
