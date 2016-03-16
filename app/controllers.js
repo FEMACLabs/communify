@@ -105,9 +105,9 @@ function UserCtrl($scope, $location, getUserService) {
 
 }
 
-angular.module('capstoneApp').controller('EventCtrl', ['$scope', '$location', 'getEventService', EventCtrl]);
+angular.module('capstoneApp').controller('EventCtrl', ['$scope', '$location', 'getEventService', 'rsvpService', EventCtrl]);
 
-function EventCtrl($scope, $location, getEventService) {
+function EventCtrl($scope, $location, getEventService, rsvpService) {
   var vm = this;
   vm.loadEvents = getEventService.all()
   .then(function(eventsArr) {
@@ -116,4 +116,11 @@ function EventCtrl($scope, $location, getEventService) {
   .catch(function(err) {
     console.err(new Error(err));
   });
+
+  vm.rsvp = function(anEvent) {
+    rsvpService.rsvp(anEvent).then(function(response) {
+      console.log(response);
+    });
+  };
+
 }
