@@ -88,6 +88,7 @@ function DialogController($scope, $mdDialog, $location, dataService, postUserSer
   $scope.answer = function(answer) {
     $mdDialog.hide(answer);
   };
+  
 }
 
 

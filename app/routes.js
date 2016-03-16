@@ -8,12 +8,7 @@ app.config(function($routeProvider) {
     templateUrl: './views/home.html',
     controller: 'MainCtrl as MC'
   }).when('/users', {
-      controller: 'ViewCtrl as VC',
-      // resolve: {
-      //   data: ["dataService", function(dataService) {
-      //     return dataService();
-      //   }]
-      // },
-      templateUrl:'./views/home.html'
-    });
+    templateUrl:'./views/home.html',
+    controller: 'ViewCtrl as VC'
+  });
 });
