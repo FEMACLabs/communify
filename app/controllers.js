@@ -45,9 +45,9 @@ function MainCtrl($scope, $mdDialog, $mdMedia) {
 
 }
 
-angular.module('capstoneApp').controller('DialogController', ['$scope', '$location', 'getUserService', 'postUserService', 'postEventService', DialogController]);
+angular.module('capstoneApp').controller('DialogController', ['$scope', '$route', 'getUserService', 'postUserService', 'postEventService', DialogController]);
 
-function DialogController($scope, $mdDialog, $location, getUserService, postUserService, postEventService) {
+function DialogController($scope, $route, $mdDialog, getUserService, postUserService, postEventService) {
 
   // $scope.submitProfile = function(user) {
   //   $scope.user = {
@@ -66,6 +66,7 @@ function DialogController($scope, $mdDialog, $location, getUserService, postUser
     // vm.loggedStatus = true;
     // $location.path('/tab/stream');
     $mdDialog.hide();
+    $route.reload();
   });
 };
 
@@ -76,6 +77,7 @@ function DialogController($scope, $mdDialog, $location, getUserService, postUser
     // vm.loggedStatus = true;
     // $location.path('/tab/stream');
     $mdDialog.hide();
+    $route.reload();
   });
 };
 
