@@ -17,9 +17,9 @@
             <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
             <input ng-model="title" type="text" placeholder="Title">
           </md-input-container>
-          <md-input-container class="md-icon-float md-block">
-            <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
-            <input ng-model="date" type="text" placeholder="Date">
+          <md-input-container>
+            <md-datepicker ng-model="date" md-placeholder="Enter date"
+            md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
           </md-input-container>
           <md-input-container class="md-icon-float md-block">
             <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>

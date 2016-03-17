@@ -9,6 +9,40 @@ function MainCtrl($scope, $mdDialog, $mdMedia) {
   $scope.status = '  ';
   $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 
+  $scope.signup = function(ev) {
+    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: 'signupForm.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: useFullScreen
+    });
+    $scope.$watch(function() {
+      return $mdMedia('xs') || $mdMedia('sm');
+    }, function(wantsFullScreen) {
+      $scope.customFullscreen = (wantsFullScreen === true);
+    });
+  };
+
+  $scope.signin = function(ev) {
+    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: 'signinForm.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: useFullScreen
+    });
+    $scope.$watch(function() {
+      return $mdMedia('xs') || $mdMedia('sm');
+    }, function(wantsFullScreen) {
+      $scope.customFullscreen = (wantsFullScreen === true);
+    });
+  };
+
   $scope.editProfile = function(ev) {
     var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
     $mdDialog.show({
@@ -45,9 +79,9 @@ function MainCtrl($scope, $mdDialog, $mdMedia) {
 
 }
 
-angular.module('capstoneApp').controller('DialogController', ['$scope', '$route', 'getUserService', 'postUserService', 'postEventService', DialogController]);
+angular.module('capstoneApp').controller('DialogController', ['$scope', '$route', 'signupService', 'signinService', 'getUserService', 'postUserService', 'postEventService', DialogController]);
 
-function DialogController($scope, $route, $mdDialog, getUserService, postUserService, postEventService) {
+function DialogController($scope, $route, $mdDialog, signupService, signinService, getUserService, postUserService, postEventService) {
 
   // $scope.submitProfile = function(user) {
   //   $scope.user = {
@@ -59,6 +93,26 @@ function DialogController($scope, $route, $mdDialog, getUserService, postUserSer
   //   return $scope.user;
   // };
 
+  $scope.submitSignup = function(user) {
+    signupService.submitSignup(user).then(function(response) {
+    console.log(response);
+    // localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
+    // vm.loggedStatus = true;
+    // $location.path('/tab/stream');
+    $mdDialog.hide();
+  });
+};
+
+$scope.submitSignin = function(user) {
+  signinService.submitSignin(user).then(function(response) {
+    console.log(response);
+    // localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
+    // vm.loggedStatus = true;
+    // $location.path('/tab/stream');
+    $mdDialog.hide();
+  });
+};
+
   $scope.submitProfile = function(user) {
     postUserService.submitProfile(user).then(function(response) {
     console.log(response);
@@ -69,6 +123,16 @@ function DialogController($scope, $route, $mdDialog, getUserService, postUserSer
     $route.reload();
   });
 };
+
+  $scope.date = new Date();
+  $scope.minDate = new Date(
+      $scope.date.getFullYear(),
+      $scope.date.getMonth(),
+      $scope.date.getDate() - 0);
+  $scope.maxDate = new Date(
+      $scope.date.getFullYear(),
+      $scope.date.getMonth() + 3,
+      $scope.date.getDate());
 
   $scope.submitEvent = function(anEvent) {
     postEventService.submitEvent(anEvent).then(function(response) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="capstoneApp">
+<html ng-app="capstoneApp" ng-controller="MainCtrl">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc5/angular-material.min.css">
@@ -11,7 +11,7 @@
 
     <md-toolbar>
       <div class="md-toolbar-tools" layout-align="end center">
-        <md-button class="md-raised md-primary">Sign In</md-button>
+        <md-button class="md-raised md-primary" ng-click="signin()">Sign In</md-button>
       </div>
     </md-toolbar>
 

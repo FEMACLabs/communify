@@ -14,6 +14,8 @@ var User = Waterline.Collection.extend({
   connection: 'myLocalDisk',
 
   attributes: {
+    email: 'string',
+    password: 'string',
     name: 'string',
     zip: 'string',
     userDescript: 'string',
