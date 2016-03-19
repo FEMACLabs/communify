@@ -1,8 +1,10 @@
 'use strict';
 
-angular.module('capstoneApp').controller('MainCtrl', ['$scope', '$mdDialog', '$mdMedia', MainCtrl]);
+var app = angular.module('capstoneApp.controllers', [])
 
-function MainCtrl($scope, $mdDialog, $mdMedia) {
+angular.module('capstoneApp.controllers', [])
+
+.controller('MainCtrl', function ($scope, $location, $mdDialog, $mdMedia) {
 
   var vm = this;
 
@@ -77,11 +79,39 @@ function MainCtrl($scope, $mdDialog, $mdMedia) {
     });
   };
 
-}
+})
 
-angular.module('capstoneApp').controller('DialogController', ['$scope', '$route', 'signupService', 'signinService', 'getUserService', 'postUserService', 'postEventService', DialogController]);
+.controller('UserCtrl', function ($scope, $location, getUserService) {
+  var vm = this;
+  getUserService.get().then(function(user){
+    console.log(user.data);
+    vm.user = user.data;
+  });
 
-function DialogController($scope, $route, $mdDialog, signupService, signinService, getUserService, postUserService, postEventService) {
+})
+
+.controller('EventCtrl', function ($scope, $location, getEventService, rsvpService) {
+  var vm = this;
+  vm.loadEvents = getEventService.all()
+  .then(function(eventsArr) {
+    vm.events = eventsArr.data;
+  })
+  .catch(function(err) {
+    console.err(new Error(err));
+  });
+
+  vm.rsvp = function(anEvent) {
+    rsvpService.rsvp(anEvent).then(function(response) {
+      console.log(response);
+    });
+  };
+
+});
+
+
+app.controller('DialogController', ['$scope', '$location', '$route', '$mdDialog', 'signupService', 'signinService', 'getUserService', 'postUserService', 'postEventService']);
+
+function DialogController ($scope, $location, $route, $mdDialog, signupService, signinService, getUserService, postUserService, postEventService) {
 
   // $scope.submitProfile = function(user) {
   //   $scope.user = {
@@ -96,9 +126,9 @@ function DialogController($scope, $route, $mdDialog, signupService, signinServic
   $scope.submitSignup = function(user) {
     signupService.submitSignup(user).then(function(response) {
     console.log(response);
-    // localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
+    localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
     // vm.loggedStatus = true;
-    // $location.path('/tab/stream');
+    $location.path('/users');
     $mdDialog.hide();
   });
 };
@@ -106,9 +136,9 @@ function DialogController($scope, $route, $mdDialog, signupService, signinServic
 $scope.submitSignin = function(user) {
   signinService.submitSignin(user).then(function(response) {
     console.log(response);
-    // localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
+    localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
     // vm.loggedStatus = true;
-    // $location.path('/tab/stream');
+    $location.path('/users');
     $mdDialog.hide();
   });
 };
@@ -116,9 +146,6 @@ $scope.submitSignin = function(user) {
   $scope.submitProfile = function(user) {
     postUserService.submitProfile(user).then(function(response) {
     console.log(response);
-    // localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
-    // vm.loggedStatus = true;
-    // $location.path('/tab/stream');
     $mdDialog.hide();
     $route.reload();
   });
@@ -153,38 +180,6 @@ $scope.submitSignin = function(user) {
   };
   $scope.answer = function(answer) {
     $mdDialog.hide(answer);
-  };
-
-}
-
-
-angular.module('capstoneApp').controller('UserCtrl', ['$scope', '$location', 'getUserService', UserCtrl]);
-
-function UserCtrl($scope, $location, getUserService) {
-  var vm = this;
-  getUserService.get().then(function(user){
-    console.log(user.data[0]);
-    vm.user = user.data[0];
-  });
-
-}
-
-angular.module('capstoneApp').controller('EventCtrl', ['$scope', '$location', 'getEventService', 'rsvpService', EventCtrl]);
-
-function EventCtrl($scope, $location, getEventService, rsvpService) {
-  var vm = this;
-  vm.loadEvents = getEventService.all()
-  .then(function(eventsArr) {
-    vm.events = eventsArr.data;
-  })
-  .catch(function(err) {
-    console.err(new Error(err));
-  });
-
-  vm.rsvp = function(anEvent) {
-    rsvpService.rsvp(anEvent).then(function(response) {
-      console.log(response);
-    });
   };
 
 }

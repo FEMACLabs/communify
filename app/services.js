@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('capstoneApp')
+angular.module('capstoneApp.services', [])
 
 .service('signinService', ['$http', function($http) {
   return {
     submitSignin: function(user) {
-      return $http.post('/signin', user)
+      return $http.post('http://localhost:3000/signin', user)
       .then(function(response) {
         // console.log('success response');
         return response;
@@ -20,7 +20,7 @@ angular.module('capstoneApp')
 .service('signupService', ['$http', function($http) {
   return {
     submitSignup: function(user) {
-      return $http.post('http://localhost:3000/users', user)
+      return $http.post('http://localhost:3000/signup', user)
       .then(function(response) {
         // console.log('success response');
         return response;
@@ -111,4 +111,31 @@ angular.module('capstoneApp')
       });
     }
   };
-}]);
+}])
+
+.service('AuthInterceptor', function($location, $q) {
+  return {
+    request: function(config) {
+      // prevent browser bar tampering for /api routes
+      config.headers['X-Requested-With'] = 'XMLHttpRequest';
+      var token = localStorage.getItem("Authorization");
+      if (token) {
+        config.headers.Authorization = token;
+      }
+        return $q.resolve(config);
+    },
+    responseError: function(err) {
+      // if token is tampered with, log out user and destroy token
+      if (err.data === "invalid token" || err.data === "invalid signature" || err.data === "jwt malformed") {
+        $location.path('/');
+        return $q.reject(err);
+      }
+      // reject access to other users
+      if (err.status === 401) {
+        $location.path('/');
+        return $q.reject(err);
+      }
+      return $q.reject(err);
+    }
+  };
+});
