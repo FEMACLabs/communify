@@ -81,12 +81,12 @@ angular.module('capstoneApp.controllers', [])
 
 })
 
-.controller('UserCtrl', function ($scope, $location, getUserService) {
-  var vm = this;
-  getUserService.get().then(function(user){
-    console.log(user.data);
-    vm.user = user.data;
-  });
+.controller('UserCtrl', function ($scope, getUserService) {
+
+  $scope.loadUser = getUserService.all()
+    .then(function(user){
+      $scope.user = user.data;
+    });
 
 })
 
@@ -101,6 +101,13 @@ angular.module('capstoneApp.controllers', [])
   });
 
   vm.rsvp = function(anEvent) {
+    for (var i = 0; i < vm.events.length; i++) {
+      if (vm.events[i].id === anEvent.id) {
+        anEvent = vm.events[i];
+      }
+    }
+    console.log(vm.events);
+    console.log('click event works');
     rsvpService.rsvp(anEvent).then(function(response) {
       console.log(response);
     });
@@ -108,44 +115,38 @@ angular.module('capstoneApp.controllers', [])
 
 });
 
+app.controller('DialogController', ['$scope', '$location', '$route', '$mdDialog', 'signupService', 'signinService', 'getUserService', 'putUserService', 'postEventService']);
 
-app.controller('DialogController', ['$scope', '$location', '$route', '$mdDialog', 'signupService', 'signinService', 'getUserService', 'postUserService', 'postEventService']);
-
-function DialogController ($scope, $location, $route, $mdDialog, signupService, signinService, getUserService, postUserService, postEventService) {
-
-  // $scope.submitProfile = function(user) {
-  //   $scope.user = {
-  //     name: user.name,
-  //     zip: user.zip,
-  //     description: user.userDescript
-  //   };
-  //   console.log($scope.user);
-  //   return $scope.user;
-  // };
+function DialogController ($scope, $location, $route, $mdDialog, signupService, signinService, getUserService, putUserService, postEventService) {
 
   $scope.submitSignup = function(user) {
     signupService.submitSignup(user).then(function(response) {
+    var userID = response.data.user.id;
     console.log(response);
     localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
+    localStorage.setItem('id', userID);
     // vm.loggedStatus = true;
-    $location.path('/users');
+    $location.path('/home');
     $mdDialog.hide();
   });
 };
 
 $scope.submitSignin = function(user) {
   signinService.submitSignin(user).then(function(response) {
-    console.log(response);
+    var userID = response.data.user.id;
     localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
+    localStorage.setItem('id', userID);
     // vm.loggedStatus = true;
-    $location.path('/users');
+    $location.path('/home');
     $mdDialog.hide();
+    return userID;
   });
 };
 
   $scope.submitProfile = function(user) {
-    postUserService.submitProfile(user).then(function(response) {
+    putUserService.submitProfile(user).then(function(response) {
     console.log(response);
+    console.log(user);
     $mdDialog.hide();
     $route.reload();
   });
@@ -164,9 +165,6 @@ $scope.submitSignin = function(user) {
   $scope.submitEvent = function(anEvent) {
     postEventService.submitEvent(anEvent).then(function(response) {
     console.log(response);
-    // localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
-    // vm.loggedStatus = true;
-    // $location.path('/tab/stream');
     $mdDialog.hide();
     $route.reload();
   });

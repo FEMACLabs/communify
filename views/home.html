@@ -1,6 +1,7 @@
 <div class="ng-scope" ng-controller="MainCtrl as MC">
+  <div class="navspacer"></div>
   <md-content class="md-padding layout-xs-column layout-row" layout-xs="column" layout="row">
-    <div flex-xs flex-gt-xs="50" layout="column" class="layout-column flex-xs flex-gt-xs-50" ng-controller="UserCtrl as UC">
+    <div flex-xs flex-gt-xs="35" layout="column" class="layout-column flex-xs flex-gt-xs-35" ng-controller="UserCtrl as UC">
       <md-card>
         <md-card-title>
           <md-card-title-media>
@@ -9,8 +10,8 @@
             </div>
           </md-card-title-media>
           <md-card-title-text>
-            <span class="md-headline">{{ UC.user.name }}</span>
-            <span class="md-subhead">{{ UC.user.userDescript }}</span>
+            <span class="md-headline">{{ user.name }}</span>
+            <span class="md-subhead">{{ user.userDescript }}</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-actions layout="row" layout-align="left center">
@@ -23,7 +24,7 @@
         Create Event
       </md-button>
     </div>
-    <div flex-xs flex-gt-xs="50" layout="column" class="layout-column flex-xs flex-gt-xs-50 event" ng-controller="EventCtrl as EC">
+    <div flex-xs flex-gt-xs="65" layout="column" class="layout-column flex-xs flex-gt-xs-50 event" ng-controller="EventCtrl as EC">
       <md-card flex="auto" flex-gt-md="auto" ng-repeat="event in EC.events">
         <md-card-title>
           <md-card-title-media>
@@ -32,14 +33,14 @@
             </div>
           </md-card-title-media>
           <md-card-title-text>
-            <span class="md-headline">{{ event.title }}</span>
+            <span class="md-headline" name="title" ng-model="title">{{ event.title }}</span>
             <span class="md-subhead">{{ event.date }}</span>
             <span class="md-subhead">{{ event.location }}</span>
             <p>{{ event.eventDescript }}</p>
           </md-card-title-text>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button class="md-primary md-raised" ng-click="showAdvanced($event)" flex="25" flex-gt-md="auto">
+          <md-button class="md-primary md-raised" ng-click="EC.rsvp({id: event.id, title: event.title, date: event.date, location: event.location, eventDescript: event.eventDescript})" flex="25" flex-gt-md="auto">
             RSVP
           </md-button>
         </md-card-actions>

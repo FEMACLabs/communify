@@ -7,7 +7,6 @@ angular.module('capstoneApp.services', [])
     submitSignin: function(user) {
       return $http.post('http://localhost:3000/signin', user)
       .then(function(response) {
-        // console.log('success response');
         return response;
       }, function(error) {
         // console.log('service errors');
@@ -34,19 +33,26 @@ angular.module('capstoneApp.services', [])
 
 .service('getUserService', ['$http', function($http) {
 
-  var self = {};
+    this.all = function(user) {
+      var userID = localStorage.getItem('id');
+      return $http.get('http://localhost:3000/users/' + userID, user)
+      .then(function(response) {
+        // console.log('success response');
+        return response;
+      }, function(error) {
+        // console.log('service errors');
+        return error;
+      });
 
-  self.get = function(){
-    return $http.get('http://localhost:3000/users');
   };
-
-  return self;
 }])
 
-.service('postUserService', ['$http', function($http) {
+.service('putUserService', ['$http', function($http) {
   return {
     submitProfile: function(user) {
-      return $http.post('http://localhost:3000/users', user)
+      var userID = localStorage.getItem('id');
+      console.log(user);
+      return $http.put('http://localhost:3000/users/' + userID, user)
         .then(function(response) {
           // console.log('success response');
           return response;
@@ -64,7 +70,6 @@ angular.module('capstoneApp.services', [])
         method: 'GET',
         url: 'http://localhost:3000/events'
       }).then(function(events) {
-        console.log(events);
         return events;
       }, function(response) {
         console.error(new Error(response));
@@ -101,7 +106,8 @@ angular.module('capstoneApp.services', [])
 .service('rsvpService', ['$http', function($http) {
   return {
     rsvp: function(anEvent) {
-      return $http.post('http://localhost:3000//users/:id/events', anEvent)
+      var userID = localStorage.getItem('id');
+      return $http.post('http://localhost:3000/users/' + userID + '/events', anEvent)
         .then(function(response) {
           // console.log('success response');
           return response;

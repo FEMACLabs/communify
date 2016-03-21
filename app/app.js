@@ -6,4 +6,11 @@ angular.module('capstoneApp', ['capstoneApp.services', 'capstoneApp.controllers'
 
   $httpProvider.interceptors.push("AuthInterceptor");
 
+})
+
+.config(function($mdThemingProvider) {
+
+  $mdThemingProvider.theme('default')
+  .primaryPalette('red')
+  .accentPalette('grey');
 });

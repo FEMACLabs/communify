@@ -28,8 +28,10 @@ router.post('/signup', function(req, res, next) {
         expiresIn: 1600
       };
       var token = jsonWebToken.sign(user, secret, expires);
-        res.json({token : token});
+        res.json({token : token, user : user});
     });
+    var newUser = user;
+    console.log(newUser);
   }
 
   function hashPassword(user, callback){
@@ -50,8 +52,10 @@ router.post('/signin', function(req, res, next) {
         var expires = {
           expiresIn: 1600
         };
+        delete user.password;
+        console.log(user);
         var token = jsonWebToken.sign(user, secret, expires);
-          res.json({token : token});
+        res.json({token : token, user : user});
       } else {
         console.log('authentication failed');
         res.send('authentication failed');
