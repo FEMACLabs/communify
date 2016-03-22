@@ -15,21 +15,33 @@
           <md-input-container class="md-icon-float md-block">
             <!-- Use floating label instead of placeholder -->
             <!-- <md-icon md-svg-src="img/icons/ic_email_black_24px.svg" class="email"></md-icon> -->
-            <input ng-model="email" name="email" type="email" placeholder="Email" ng-required="true">
+            <input ng-model="email" name="email" type="email" placeholder="Email" required/>
+            <div ng-messages="signup.email.$error">
+              <div ng-message="required">Please enter valid email address</div>
+            </div>
           </md-input-container>
           <md-input-container class="md-icon-float md-block">
             <!-- <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon> -->
-            <input ng-model="password" type="password" placeholder="Password" ng-required="true">
+            <input ng-model="password" name="password" type="password" placeholder="Password" required/>
+            <div ng-messages="signup.password.$error">
+              <div ng-message="required">Please enter a password</div>
+            </div>
           </md-input-container>
           <md-input-container class="md-icon-float md-block">
             <!-- <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="password"></md-icon> -->
-            <input type="password" placeholder="Confirm password" ng-required="true"></textarea>
+            <input ng-model="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required/>
+            <div ng-messages="signup.confirmPassword.$error">
+              <div ng-message="required">Please confirm your password</div>
+              <div ng-show="((signup.password.$dirty && signup.confirmPassword.$dirty) && (password != confirmPassword))">
+                <div class="noMatch">Passwords do not match</div>
+              </div>
+            </div>
           </md-input-container>
         </md-content>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button class="md-raised md-primary" type="submit">
+      <md-button class="md-raised md-primary" type="submit" ng-disabled="!signup.$valid">
         Sign Up
       </md-button>
       <span flex></span>

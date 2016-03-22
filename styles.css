@@ -25,6 +25,10 @@
   width: 80%;
 }
 
+.noMatch {
+  font-size: 12px;
+}
+
 .solidarity {
   max-width: 25px;
   max-height: 30px;

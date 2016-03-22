@@ -13,19 +13,22 @@
       <div class="md-dialog-content">
         <md-content class="md-no-momentum">
           <md-input-container class="md-icon-float md-block">
-            <!-- Use floating label instead of placeholder -->
-            <!-- <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="email"></md-icon> -->
-            <input ng-model="email" name="email" type="email" placeholder="Email">
+            <input ng-model="email" name="email" type="email" placeholder="Email" required/>
+            <div ng-messages="signin.email.$error">
+              <div ng-message="required">Please enter email you signed up with</div>
+            </div>
           </md-input-container>
           <md-input-container class="md-icon-float md-block">
-            <!-- <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon> -->
-            <input ng-model="password" type="password" placeholder="Password">
+            <input ng-model="password" name="password" type="password" placeholder="Password" required/>
+            <div ng-messages="signin.password.$error">
+              <div ng-message="required">Please enter your password</div>
+            </div>
           </md-input-container>
         </md-content>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button class="md-raised md-primary" type="submit">
+      <md-button class="md-raised md-primary" type="submit" ng-disabled="!signin.$valid">
         Sign In
       </md-button>
       <span flex></span>
