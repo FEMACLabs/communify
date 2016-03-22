@@ -86,6 +86,17 @@ angular.module('capstoneApp.controllers', [])
   $scope.loadUser = getUserService.all()
     .then(function(user){
       $scope.user = user.data;
+      console.log($scope.user);
+    });
+
+})
+
+.controller('UserEventCtrl', function ($scope, getUserService) {
+  var vm = this;
+  vm.loadUser = getUserService.all()
+    .then(function(user){
+      vm.userEvents = user.data.events;
+      console.log(vm.userEvents);
     });
 
 })
@@ -95,6 +106,7 @@ angular.module('capstoneApp.controllers', [])
   vm.loadEvents = getEventService.all()
   .then(function(eventsArr) {
     vm.events = eventsArr.data;
+    console.log(vm.events);
   })
   .catch(function(err) {
     console.err(new Error(err));

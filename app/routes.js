@@ -9,6 +9,9 @@ app.config(['$routeProvider', function($routeProvider) {
   }).when('/home', {
     templateUrl: '../views/home.html'
     // controller: 'MainCtrl as MC'
+  }).when('/home/myevents', {
+    templateUrl: '../views/myevents.html'
+    // controller: 'MainCtrl as MC'
   }).when('/users', {
     templateUrl:'../views/home.html'
     // controller: 'ViewCtrl as VC'
