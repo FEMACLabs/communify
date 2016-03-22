@@ -2,11 +2,11 @@
 
 var app = angular.module('capstoneApp.controllers', [])
 
+var loggedStatus;
+
 angular.module('capstoneApp.controllers', [])
 
 .controller('MainCtrl', function ($scope, $location, $mdDialog, $mdMedia) {
-
-  var vm = this;
 
   $scope.status = '  ';
   $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
@@ -43,6 +43,14 @@ angular.module('capstoneApp.controllers', [])
     }, function(wantsFullScreen) {
       $scope.customFullscreen = (wantsFullScreen === true);
     });
+  };
+
+  $scope.signout = function() {
+    localStorage.setItem('Authorization', null);
+    localStorage.setItem('id', null);
+    loggedStatus = false;
+    console.log(loggedStatus);
+    $location.path('/');
   };
 
   $scope.editProfile = function(ev) {
@@ -137,7 +145,7 @@ function DialogController ($scope, $location, $route, $mdDialog, signupService, 
     console.log(response);
     localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
     localStorage.setItem('id', userID);
-    // vm.loggedStatus = true;
+    loggedStatus = true;
     $location.path('/home');
     $mdDialog.hide();
   });
@@ -148,7 +156,8 @@ $scope.submitSignin = function(user) {
     var userID = response.data.user.id;
     localStorage.setItem('Authorization', 'Bearer ' + response.data.token);
     localStorage.setItem('id', userID);
-    // vm.loggedStatus = true;
+    loggedStatus = true;
+    console.log(loggedStatus);
     $location.path('/home');
     $mdDialog.hide();
     return userID;
