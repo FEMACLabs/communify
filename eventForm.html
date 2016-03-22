@@ -14,32 +14,37 @@
         <md-content class="md-no-momentum">
           <md-input-container class="md-icon-float md-block">
             <!-- Use floating label instead of placeholder -->
-            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-            <input ng-model="title" type="text" placeholder="Title">
+            <input ng-model="title" name="title" type="text" placeholder="Title" required/>
+            <div ng-messages="createEvent.title.$error">
+              <div ng-message="required">Please enter a title for your event</div>
+            </div>
           </md-input-container>
             <md-datepicker ng-model="date" md-placeholder="Enter date"
             md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
           <md-input-container class="md-icon-float md-block">
-            <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
-            <input ng-model="location" type="text" placeholder="Location">
+            <input ng-model="location" name="location" type="text" placeholder="Location" required/>
+            <div ng-messages="createEvent.location.$error">
+              <div ng-message="required">Please enter a location for your event</div>
+            </div>
           </md-input-container>
           <md-input-container class="md-icon-float md-block">
             <!-- Use floating placeholder instead of label -->
-            <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="email"></md-icon>
-            <textarea ng-model="eventDescript" cols="50" rows="3" placeholder="Description" ng-required="true"></textarea>
+            <textarea ng-model="eventDescript" name="eventDescript" cols="50" rows="3" placeholder="Description" required/></textarea>
+            <div ng-messages="createEvent.eventDescript.$error">
+              <div ng-message="required">Please enter a description for your event</div>
+            </div>
           </md-input-container>
           <!-- <md-input-container class="md-icon-float md-block"> -->
             <md-button>
               <label for="fileInput" class="md-raised md-primary" ng-model="eventImg">Choose File</label>
               <input id="fileInput" type="file">
             </md-button>
-            <md-icon md-svg-src="img/icons/ic_place_24px.svg" style="display:inline-block;"></md-icon>
           <!-- </md-input-container> -->
         </md-content>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button class="md-raised md-primary" type="submit">
+      <md-button class="md-raised md-primary" type="submit" ng-disabled="!createEvent.$valid">
         Create Event
       </md-button>
       <span flex></span>
