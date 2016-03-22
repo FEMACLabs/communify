@@ -46,21 +46,25 @@ router.post('/signup', function(req, res, next) {
 
 router.post('/signin', function(req, res, next) {
   req.models.user.findOne({ email: req.body.email }).exec(function(err, user) {
-    bcrypt.compare(req.body.password, user.password, function(err, match) {
-      if (match) {
-        console.log('authentication successful');
-        var expires = {
-          expiresIn: 1600
-        };
-        delete user.password;
-        console.log(user);
-        var token = jsonWebToken.sign(user, secret, expires);
-        res.json({token : token, user : user});
-      } else {
-        console.log('authentication failed');
-        res.send('authentication failed');
-      }
-    });
+    if (user === undefined) {
+      res.send(err);
+    } else {
+      bcrypt.compare(req.body.password, user.password, function(err, match) {
+        if (match) {
+          console.log('authentication successful');
+          var expires = {
+            expiresIn: 1600
+          };
+          delete user.password;
+          console.log(user);
+          var token = jsonWebToken.sign(user, secret, expires);
+          res.json({token : token, user : user});
+        } else {
+          console.log('authentication failed');
+          res.send('authentication failed');
+        }
+      });
+    }
   });
 });
 
