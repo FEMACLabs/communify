@@ -20,9 +20,10 @@
           </md-button>
         </md-card-actions>
       </md-card>
-      <md-button class="md-primary md-raised" ng-click="createEvent($event)" flex="50" flex-gt-md="auto">
+      <md-button class="md-primary md-raised" ng-click="createEvent($event)">
         Create Event
       </md-button>
+      <md-button class="md-raised md-primary" href="/#/home/myevents">My Events</md-button>
     </div>
     <div flex-xs flex-gt-xs="65" layout="column" class="layout-column flex-xs flex-gt-xs-50 event" ng-controller="EventCtrl as EC">
       <md-card flex="auto" flex-gt-md="auto" ng-repeat="event in EC.events">
