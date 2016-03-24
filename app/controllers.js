@@ -139,29 +139,8 @@ app.controller('DialogController', ['$scope', '$location', '$route', '$mdDialog'
 
 function DialogController ($scope, $location, $route, $mdDialog, signupService, signinService, getUserService, putUserService, postEventService) {
 
-  // add Upload and $timeout to DialogController
-
-  // $scope.uploadPic = function(file) {
-  //   file.upload = Upload.upload({
-  //     url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-  //     data: {file: file},
-  //   });
-  //
-  //   file.upload.then(function (response) {
-  //     $timeout(function () {
-  //       file.result = response.data;
-  //     });
-  //   }, function (response) {
-  //     if (response.status > 0) {
-  //       $scope.errorMsg = response.status + ': ' + response.data;
-  //     }
-  //   }, function (evt) {
-  //     // Math.min is to fix IE which reports 200% sometimes
-  //     file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-  //   });
-  // };
-
   $scope.submitSignup = function(user) {
+
     signupService.submitSignup(user).then(function(response) {
     var userID = response.data.user.id;
     console.log(response);
@@ -187,6 +166,7 @@ $scope.submitSignin = function(user) {
 };
 
   $scope.submitProfile = function(user) {
+
     putUserService.submitProfile(user).then(function(response) {
     console.log(response);
     console.log(user);
