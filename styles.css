@@ -2,8 +2,50 @@
   height: inherit;
 }*/
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .main-window {
   height: 80%;
+}
+
+.boxshadow {
+  box-shadow: 0 3px 9px grey;
+}
+
+.margin-bottom {
+  margin-bottom: .3em;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.green {
+  color: #00bf02;
+}
+
+.title-spacer {
+  height: .8em;
+}
+
+.details-spacer {
+  width: 10px;
+}
+
+.icon-spacer {
+  margin-top: .3em;
+}
+
+.md-display-1 {
+  font-weight: 500;
+}
+
+.icon {
+  max-width: 24px;
+  max-height: 24px;
 }
 
 .navbar {
@@ -16,9 +58,7 @@
 }
 
 .start-btn {
-  width: 10em;
-  font-size: 18px;
-  margin-top: -270px;
+  margin-top: -350px;
 }
 
 .event {
@@ -30,7 +70,7 @@
 }
 
 .solidarity {
-  max-width: 25px;
+  max-width: 21px;
   max-height: 30px;
   margin-right: 15px;
   margin-bottom: 2px;
@@ -38,8 +78,31 @@
 
 .mlkmarch {
   width: 100%;
-  max-height: 900px;
+  max-height: 1100px;
   margin-top: -20px;
+}
+
+.md-card-img {
+  max-height: 15em;
+}
+
+.img-padding {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+.event-img {
+  max-height: 10em;
+  margin-bottom: 1em;
+}
+
+.form {
+  min-width: 20em;
+}
+
+.rsvp-button {
+  width: 100%;
 }
 
 .dialogdemoBasicUsage #popupContainer {

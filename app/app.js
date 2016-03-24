@@ -11,6 +11,15 @@ angular.module('capstoneApp', ['capstoneApp.services', 'capstoneApp.controllers'
 .config(function($mdThemingProvider) {
 
   $mdThemingProvider.theme('default')
-  .primaryPalette('red')
-  .accentPalette('grey');
+  .primaryPalette('red', {
+    'default': '600',
+    'hue-1': '800'
+  })
+  .accentPalette('light-green', {
+    'default': '700'
+  })
+  .backgroundPalette('grey', {
+    'default': '300',
+    'hue-1': '100'
+  });
 });
