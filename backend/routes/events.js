@@ -7,7 +7,17 @@ var secret = 'temporarySecret';
 
 
 router.get('/', function(req, res) {
-  req.models.event.find().exec(function(err, events) {
+  req.models.event.find().populate('owners').exec(function(err, events) {
+    for (var i = 0; i < events.length; i++) {
+      // console.log(events[i].owners);
+      for (var j = 0; j < events[i].owners.length; j++) {
+        var id = events[i].owners[j].id;
+        if (req.user.id === id) {
+          events[i].rsvp = true;
+        }
+      }
+    }
+    console.log(events);
     if(err) return res.json({ err: err }, 500);
     res.json(events);
   });

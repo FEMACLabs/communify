@@ -65,4 +65,16 @@ router.post('/:id/events', function(req, res) {
   });
 });
 
+router.delete('/:user_id/events/:event_id', function(req, res) {
+  req.models.user.findOne({ id: req.params.user_id }, function(err, user) {
+    if(err) return res.status(500).json({ err: err });
+    console.log(req.params);
+    user.events.remove(req.params.event_id);
+    user.save(function(err) {
+      if(err) return res.status(500).json({ err: err });
+      res.json(user);
+    });
+  });
+});
+
 module.exports = router;

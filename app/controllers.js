@@ -99,7 +99,7 @@ angular.module('capstoneApp.controllers', [])
 
 })
 
-.controller('UserEventCtrl', function ($scope, getUserService) {
+.controller('UserEventCtrl', function ($scope, getUserService, removeRsvpService) {
   var vm = this;
   vm.loadUser = getUserService.all()
     .then(function(user){
@@ -107,28 +107,44 @@ angular.module('capstoneApp.controllers', [])
       console.log(vm.userEvents);
     });
 
+  vm.removersvp = function(anEvent) {
+    var index;
+    for (var i = 0; i < vm.userEvents.length; i++) {
+      if (vm.userEvents[i].id === anEvent.id) {
+        index = i;
+        anEvent = vm.userEvents[i];
+      }
+    }
+    console.log(vm.events);
+    console.log('click event works');
+    removeRsvpService.removersvp(anEvent).then(function(response) {
+      console.log(response);
+    });
+    vm.userEvents.splice(index, 1);
+  };
+
 })
 
-.controller('EventCtrl', function ($scope, $location, getEventService, rsvpService) {
+.controller('EventCtrl', function ($scope, $location, getEventService, rsvpService, removeRsvpService) {
   var vm = this;
   vm.loadEvents = getEventService.all()
   .then(function(eventsArr) {
     vm.events = eventsArr.data;
-    console.log(vm.events);
   })
   .catch(function(err) {
     console.err(new Error(err));
   });
 
   vm.rsvp = function(anEvent) {
-    for (var i = 0; i < vm.events.length; i++) {
-      if (vm.events[i].id === anEvent.id) {
-        anEvent = vm.events[i];
-      }
-    }
-    console.log(vm.events);
-    console.log('click event works');
+    anEvent.rsvp = true;
     rsvpService.rsvp(anEvent).then(function(response) {
+      console.log(response);
+    });
+  };
+
+  vm.removersvp = function(anEvent) {
+    anEvent.rsvp = false;
+    removeRsvpService.removersvp(anEvent).then(function(response) {
       console.log(response);
     });
   };

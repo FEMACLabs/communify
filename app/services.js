@@ -119,6 +119,22 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
+.service('removeRsvpService', ['$http', function($http) {
+  return {
+    removersvp: function(anEvent) {
+      var userID = localStorage.getItem('id');
+      return $http.delete('http://localhost:3000/users/' + userID + '/events/' + anEvent.id, anEvent)
+        .then(function(response) {
+          // console.log('success response');
+          return response;
+        }, function(error) {
+          // console.log('service errors');
+          return error;
+      });
+    }
+  };
+}])
+
 .service('AuthInterceptor', function($location, $q) {
   return {
     request: function(config) {
