@@ -1,5 +1,5 @@
-<md-dialog aria-label="Create Event" class="md-hue-1" ng-cloak>
-  <form name="createEvent" ng-model="createEvent" ng-submit="submitEvent({title: title, date: date, time: time, location: location, eventDescript: eventDescript, eventImg: eventImg})">
+<md-dialog aria-label="Create Event" class="md-hue-1" ng-controller="EventCtrl as EC" ng-cloak>
+  <form name="createEvent" ng-model="createEvent" ng-submit="submitEvent(EC.event)">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Create Event</h2>
@@ -14,35 +14,35 @@
         <md-content class="md-no-momentum md-hue-1">
           <md-input-container class="md-icon-float md-block">
             <!-- Use floating label instead of placeholder -->
-            <input ng-model="title" name="title" type="text" placeholder="Title" required/>
+            <input ng-model="EC.event.title" name="title" type="text" placeholder="Title" required/>
             <div ng-messages="createEvent.title.$error">
               <div ng-message="required">Please enter a title for your event</div>
             </div>
           </md-input-container>
           <md-input-container class="md-icon-float md-block">
-            <input ng-model="location" name="location" type="text" placeholder="Location" required/>
+            <input ng-model="EC.event.location" name="location" type="text" placeholder="Location" required/>
             <div ng-messages="createEvent.location.$error">
               <div ng-message="required">Please enter a location for your event</div>
             </div>
           </md-input-container>
           <md-input-container class="md-icon-float md-block">
             <!-- Use floating placeholder instead of label -->
-            <textarea ng-model="eventDescript" name="eventDescript" cols="50" rows="3" placeholder="Description" required/></textarea>
+            <textarea ng-model="EC.event.eventDescript" name="eventDescript" cols="50" rows="3" placeholder="Description" required/></textarea>
             <div ng-messages="createEvent.eventDescript.$error">
               <div ng-message="required">Please enter a description for your event</div>
             </div>
           </md-input-container>
           <md-input-container class="md-icon-float md-block">
-            <input ng-model="eventImg" name="eventImg" type="text" placeholder="Event Image" required/>
+            <input ng-model="EC.event.eventImg" name="eventImg" type="text" placeholder="Event Image" required/>
             <div ng-messages="createEvent.eventImg.$error">
               <div ng-message="required">Please enter an image url for your event</div>
             </div>
           </md-input-container>
           <span>
-            <md-datepicker class="md-hue-1" ng-model="date" md-placeholder="Enter date"
+            <md-datepicker class="md-hue-1" ng-model="EC.event.date" md-placeholder="Enter date"
             md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
             <md-input-container class="md-icon-float">
-              <input type="time" name="time" ng-model="time">
+              <input type="time" name="time" ng-model="EC.event.time">
             </md-input-container>
           </span>
         </md-content>

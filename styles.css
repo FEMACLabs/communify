@@ -97,6 +97,8 @@ a {
   object-fit: cover;
   max-height: 10em;
   margin-bottom: 1em;
+  box-shadow: 3px 3px 9px grey;
+  border-radius: 2px;
 }
 
 .form {
