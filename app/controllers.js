@@ -18,7 +18,7 @@ angular.module('capstoneApp.controllers', [])
       templateUrl: 'signupForm.html',
       parent: angular.element(document.body),
       targetEvent: ev,
-      clickOutsideToClose:true,
+      clickOutsideToClose:false,
       fullscreen: useFullScreen
     });
     $scope.$watch(function() {
@@ -35,7 +35,7 @@ angular.module('capstoneApp.controllers', [])
       templateUrl: 'signinForm.html',
       parent: angular.element(document.body),
       targetEvent: ev,
-      clickOutsideToClose:true,
+      clickOutsideToClose:false,
       fullscreen: useFullScreen
     });
     $scope.$watch(function() {
@@ -60,7 +60,7 @@ angular.module('capstoneApp.controllers', [])
       templateUrl: 'profileForm.html',
       parent: angular.element(document.body),
       targetEvent: ev,
-      clickOutsideToClose:true,
+      clickOutsideToClose:false,
       fullscreen: useFullScreen
     });
     $scope.$watch(function() {
@@ -77,7 +77,7 @@ angular.module('capstoneApp.controllers', [])
       templateUrl: 'eventForm.html',
       parent: angular.element(document.body),
       targetEvent: ev,
-      clickOutsideToClose:true,
+      clickOutsideToClose:false,
       fullscreen: useFullScreen
     });
     $scope.$watch(function() {
@@ -91,10 +91,12 @@ angular.module('capstoneApp.controllers', [])
 
 .controller('UserCtrl', function ($scope, getUserService) {
 
-  $scope.loadUser = getUserService.all()
+  var vm = this;
+
+  vm.loadUser = getUserService.all()
     .then(function(user){
-      $scope.user = user.data;
-      console.log($scope.user);
+      vm.user = user.data;
+      console.log(vm.user);
     });
 
 })

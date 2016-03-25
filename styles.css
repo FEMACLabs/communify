@@ -82,7 +82,8 @@ a {
   margin-top: -20px;
 }
 
-.md-card-img {
+.profile-img {
+  object-fit: cover;
   max-height: 15em;
 }
 
@@ -93,6 +94,7 @@ a {
 }
 
 .event-img {
+  object-fit: cover;
   max-height: 10em;
   margin-bottom: 1em;
 }

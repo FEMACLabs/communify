@@ -4,14 +4,14 @@
     <div flex-xs flex-gt-xs="25" layout="column" class="layout-column flex-xs flex-gt-xs-25" ng-controller="UserCtrl as UC">
 
       <md-card class="md-hue-1">
-        <img src="img/mlkmarch.jpeg" class="md-card-img">
+        <img src="{{ UC.user.userImg }}" class="profile-img">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">{{ user.name }}</span>
+            <span class="md-headline">{{ UC.user.name }}</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
-          <p>{{ user.userDescript }}</p>
+          <p>{{ UC.user.userDescript }}</p>
         </md-card-content>
         <md-card-actions layout="row" layout-align="start center">
           <md-button class="md-primary md-raised" ng-click="editProfile($event)" flex="50" flex-gt-md="auto">
@@ -19,22 +19,6 @@
           </md-button>
         </md-card-actions>
       </md-card>
-<!--
-      <md-card>
-        <md-card-title>
-          <md-card-title-media>
-            <div class="md-media-md card-media">
-              <img src=>
-            </div>
-          </md-card-title-media>
-          <md-card-title-text>
-            <span class="md-headline">{{ user.name }}</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="left center">
-
-        </md-card-actions>
-      </md-card> -->
 
       <md-button class="md-primary md-raised" ng-click="createEvent($event)">
         Create Event
@@ -43,6 +27,11 @@
     </div>
 
     <div flex-xs flex-gt-xs="75" layout="column" class="layout-column flex-xs flex-gt-xs-75 event" ng-controller="UserEventCtrl as UEC">
+
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">My Events</div>
+      </md-toolbar>
+
       <md-card ng-repeat="event in UEC.userEvents" layout="row" class="md-hue-1">
         <md-card-title flex-xs flex-gt-xs="75">
           <md-card-title-text layout="column">

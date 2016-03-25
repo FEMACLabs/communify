@@ -1,5 +1,5 @@
 <md-dialog aria-label="Create Event" class="md-hue-1" ng-cloak>
-  <form name="createEvent" ng-model="createEvent" ng-submit="submitEvent({title: title, date: date, location: location, eventDescript: eventDescript, eventImg: eventImg})">
+  <form name="createEvent" ng-model="createEvent" ng-submit="submitEvent({title: title, date: date, time: time, location: location, eventDescript: eventDescript, eventImg: eventImg})">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Create Event</h2>
@@ -19,8 +19,6 @@
               <div ng-message="required">Please enter a title for your event</div>
             </div>
           </md-input-container>
-            <md-datepicker class="md-hue-1" ng-model="date" md-placeholder="Enter date"
-            md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
           <md-input-container class="md-icon-float md-block">
             <input ng-model="location" name="location" type="text" placeholder="Location" required/>
             <div ng-messages="createEvent.location.$error">
@@ -34,10 +32,19 @@
               <div ng-message="required">Please enter a description for your event</div>
             </div>
           </md-input-container>
-          <!-- <md-input-container class="md-icon-float md-block"> -->
-          <p>Event image</p>
-          <input type="file">
-          <!-- </md-input-container> -->
+          <md-input-container class="md-icon-float md-block">
+            <input ng-model="eventImg" name="eventImg" type="text" placeholder="Event Image" required/>
+            <div ng-messages="createEvent.eventImg.$error">
+              <div ng-message="required">Please enter an image url for your event</div>
+            </div>
+          </md-input-container>
+          <span>
+            <md-datepicker class="md-hue-1" ng-model="date" md-placeholder="Enter date"
+            md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+            <md-input-container class="md-icon-float">
+              <input type="time" name="time" ng-model="time">
+            </md-input-container>
+          </span>
         </md-content>
       </div>
     </md-dialog-content>

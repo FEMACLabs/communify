@@ -21,11 +21,11 @@
           <img src="./img/solidarity.png" class="solidarity">
             <span class="md-headline"><a href="/#/home">Communify</a></span>
           <span flex></span>
-          {{user.name}}
-          <md-button class="md-raised md-primary" ng-show="!user.id" ng-click="signin()">
+          {{ UC.user.name }}
+          <md-button class="md-raised md-primary" ng-show="!UC.user.id" ng-click="signin()">
             <span class="md-subhead">Log in</span>
           </md-button>
-          <md-button class="md-raised md-primary" ng-show="user.id" ng-click="signout()">
+          <md-button class="md-raised md-primary" ng-show="UC.user.id" ng-click="signout()">
             <span class="md-subhead">Log out</span>
           </md-button>
         </div>

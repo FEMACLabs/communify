@@ -4,14 +4,14 @@
     <div flex-xs flex-gt-xs="25" layout="column" class="layout-column flex-xs flex-gt-xs-25" ng-controller="UserCtrl as UC">
 
       <md-card class="fixed md-hue-1">
-        <img src="img/mlkmarch.jpeg" class="md-card-img">
+        <img src="{{ UC.user.userImg }}" class="profile-img">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">{{ user.name }}</span>
+            <span class="md-headline">{{ UC.user.name }}</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
-          <p>{{ user.userDescript }}</p>
+          <p>{{ UC.user.userDescript }}</p>
         </md-card-content>
         <md-card-actions layout="row" layout-align="start center">
           <md-button class="md-primary md-raised" ng-click="editProfile($event)" flex="50" flex-gt-md="auto">
@@ -25,8 +25,23 @@
       </md-button>
       <md-button class="md-raised md-primary" href="/#/home/myevents">My Events</md-button>
     </div>
-
     <div flex-xs flex-gt-xs="75" layout="column" class="layout-column flex-xs flex-gt-xs-75 event" ng-controller="EventCtrl as EC">
+
+      <!-- <md-toolbar md-scroll-shrink class="navbar">
+          <div class="md-toolbar-tools" layout-align="center center">
+            <span class="md-display-2">Events</span>
+          </div>
+      </md-toolbar>
+      <div class="navspacer"></div> -->
+
+      <!-- <md-card class="md-primary md-hue-1">
+        <md-card-title flex-xs>
+          <span flex></span>
+          <span class="md-display-2">Events</span>
+          <span flex></span>
+        </md-card-title-text>
+      </md-card> -->
+
       <md-card ng-repeat="event in EC.events" layout="row" class="md-hue-1">
         <md-card-title flex-xs flex-gt-xs="75">
           <md-card-title-text layout="column">
@@ -38,7 +53,7 @@
             <div class="title-spacer"></div>
             <span class="md-title">
               <img src="img/icons/ic_date_range_blue_24dp_2x.png" class="icon icon-spacer inline">
-              {{ event.date | date }} | 6:00PM
+              {{ event.date | date }} | {{ event.time | date:'shortTime' }}
               <div class="details-spacer inline"></div>
               <img src="img/icons/ic_place_red_24dp_2x.png" class="icon icon-spacer inline">
               <a target="_blank" href="https://www.google.com/maps/place/{{event.location}}">{{ event.location }}</a>
@@ -48,7 +63,7 @@
         </md-card-title>
         <md-card-title class="img-padding">
           <md-card-actions layout="column" layout-align="center">
-            <img src="img/protest.jpg" class="md-card-img event-img">
+            <img src="{{ event.eventImg }}" class="md-card-img event-img">
             <md-button class="md-accent md-raised rsvp-button" ng-show="!event.rsvp" ng-click="EC.rsvp(event)">
               <md-icon md-svg-src="img/icons/ic_add_circle_white_24px.svg" class="margin-bottom"></md-icon>
               <span class="md-title">RSVP</span>

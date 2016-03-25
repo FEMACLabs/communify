@@ -24,6 +24,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
+  console.log(req.body);
   req.models.event.create(req.body, function(err, event) {
     if(err) return res.json({ err: err }, 500);
     res.json(event);
