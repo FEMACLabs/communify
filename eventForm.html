@@ -19,11 +19,14 @@
               <div ng-message="required">Please enter a title for your event</div>
             </div>
           </md-input-container>
-          <md-input-container class="md-icon-float md-block">
+          <md-input-container class="md-icon-float location-input">
             <input ng-model="EC.event.location" name="location" type="text" placeholder="Location" required/>
             <div ng-messages="createEvent.location.$error">
               <div ng-message="required">Please enter a location for your event</div>
             </div>
+          </md-input-container>
+          <md-input-container class="md-icon-float zip-input">
+            <input ng-model="EC.event.zip" name="zip" type="text" placeholder="Zip" required/>
           </md-input-container>
           <md-input-container class="md-icon-float md-block">
             <!-- Use floating placeholder instead of label -->

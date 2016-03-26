@@ -11,12 +11,20 @@ a {
   position: fixed;
 }
 
+.log-button {
+  font-weight: bold;
+}
+
 .main-window {
   height: 80%;
 }
 
 .boxshadow {
   box-shadow: 0 3px 9px grey;
+}
+
+.distance-box {
+  margin: -2px 10px 0 5px;
 }
 
 .margin-bottom {
@@ -69,8 +77,16 @@ a {
   width: 80%;
 }
 
-.search-button {
-  max-height: 3em;
+.location-input {
+  width: 85%;
+}
+
+.zip-input {
+  width: 12%;
+}
+
+.shorten-button {
+  max-height: 2em;
 }
 
 .noMatch {
@@ -105,7 +121,7 @@ a {
   object-fit: cover;
   max-height: 10em;
   margin-bottom: 1em;
-  box-shadow: 3px 3px 9px grey;
+  box-shadow: 2px 3px 9px grey;
   border-radius: 3px;
 }
 

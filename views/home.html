@@ -1,3 +1,35 @@
+<md-toolbar class="navbar boxshadow" ng-controller="UserCtrl as UC">
+  <div class="md-toolbar-tools">
+    <img src="./img/solidarity.png" class="solidarity">
+      <span class="md-headline"><a href="/#/home">Communify</a></span>
+    <span flex></span>
+    <md-menu>
+      <md-button aria-label="Open user menu" ng-click="UC.openMenu($mdOpenMenu, $event)">
+        <span>{{ UC.user.name }}</span>
+      </md-button>
+      <md-menu-content width="2">
+        <md-menu-item>
+          <md-button href="#/home/myevents">
+            My Events
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button ng-click="editProfile($event)">
+            Edit Profile
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+    <md-button class="md-raised md-primary" ng-show="!UC.user.id" ng-click="signin()">
+      <span class="md-subhead log-button">Log in</span>
+    </md-button>
+    <md-button class="md-raised md-primary" ng-show="UC.user.id" ng-click="signout()">
+      <span class="md-subhead log-button">Log out</span>
+    </md-button>
+  </div>
+</md-toolbar>
+
 <div class="ng-scope" ng-controller="MainCtrl as MC">
   <div class="navspacer"></div>
   <md-content class="md-padding layout-xs-column layout-row" layout-xs="column" layout="row">
@@ -49,19 +81,22 @@
       <md-card class="md-primary md-hue-1">
         <md-card-text>
           <div class="md-padding" ng-cloak>
-            <div layout="row">
+            <div layout="row" layout-align="center center">
               <span class="md-display-1">Events</span>
               <span flex></span>
-              <h1 class="md-title">Find events close to you:</h1>
-                <md-input-container style="margin-right: 10px;">
+              <h1 class="md-title">Find events within:</h1>
+                <md-input-container class="distance-box" style="margin-right: 10px;">
                   <label>Miles</label>
-                  <md-select ng-model="miles">
-                    <md-option ng-repeat="miles in distance" value="{{miles}}">{{miles}}</md-option>
+                  <md-select ng-model="EC.miles" name="miles">
+                    <md-option ng-repeat="miles in EC.distance" value="{{miles}}">{{miles}}</md-option>
                   </md-select>
                 </md-input-container>
-              <p ng-if="miles">Search for events within {{miles}} miles from you.</p>
-              <md-button class="md-accent md-raised search-button" ng-click="zipFilter(miles, user7)">
-                <span class="md-title">Search</span>
+              <p ng-if="miles">Search for events within {{EC.miles}} miles from you.</p>
+              <md-button class="md-accent md-raised shorten-button" ng-click="EC.zipFilter()">
+                Search
+              </md-button>
+              <md-button class="md-primary md-raised shorten-button" ng-click="EC.reset()">
+                Reset
               </md-button>
             </div>
           </div>

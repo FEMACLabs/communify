@@ -49,7 +49,6 @@ angular.module('capstoneApp.controllers', [])
     localStorage.setItem('Authorization', null);
     localStorage.setItem('id', null);
     loggedStatus = false;
-    console.log(loggedStatus);
     $location.path('/');
   };
 
@@ -87,29 +86,35 @@ angular.module('capstoneApp.controllers', [])
     });
   };
 
-  $scope.zipFilter = function(miles, user) {
-    console.log($scope.user);
-  };
-
-  $scope.distance = [
-      "5",
-      "10",
-      "20",
-      "50",
-      "100"
-  ];
-
 })
 
-.controller('UserCtrl', function ($scope, getUserService) {
+.controller('UserCtrl', function ($scope, $mdDialog, getUserService, getEventService) {
 
   var vm = this;
 
   vm.loadUser = getUserService.all()
     .then(function(user){
       vm.user = user.data;
-      console.log(vm.user);
     });
+
+    vm.loadEvents = getEventService.all()
+    .then(function(eventsArr) {
+      vm.events = eventsArr.data;
+      console.log(vm.events);
+    })
+    .catch(function(err) {
+      console.err(new Error(err));
+    });
+
+    var originatorEv;
+    vm.openMenu = function($mdOpenMenu, ev) {
+      originatorEv = ev;
+      $mdOpenMenu(ev);
+    };
+    vm.notificationsEnabled = true;
+    vm.toggleNotifications = function() {
+      vm.notificationsEnabled = !vm.notificationsEnabled;
+    };
 
 })
 
@@ -118,7 +123,6 @@ angular.module('capstoneApp.controllers', [])
   vm.loadUser = getUserService.all()
     .then(function(user){
       vm.userEvents = user.data.events;
-      console.log(vm.userEvents);
     });
 
   vm.removersvp = function(anEvent) {
@@ -129,8 +133,6 @@ angular.module('capstoneApp.controllers', [])
         anEvent = vm.userEvents[i];
       }
     }
-    console.log(vm.events);
-    console.log('click event works');
     removeRsvpService.removersvp(anEvent).then(function(response) {
       console.log(response);
     });
@@ -139,8 +141,10 @@ angular.module('capstoneApp.controllers', [])
 
 })
 
-.controller('EventCtrl', function ($scope, $location, getEventService, rsvpService, removeRsvpService) {
+.controller('EventCtrl', function ($scope, $location, $route, getEventService, getUserService, rsvpService, removeRsvpService) {
+
   var vm = this;
+
   vm.loadEvents = getEventService.all()
   .then(function(eventsArr) {
     vm.events = eventsArr.data;
@@ -148,6 +152,55 @@ angular.module('capstoneApp.controllers', [])
   .catch(function(err) {
     console.err(new Error(err));
   });
+
+  vm.loadUser = getUserService.all()
+    .then(function(user){
+      vm.user = user.data;
+    });
+
+  vm.zipFilter = function() {
+    vm.chosenDistance = vm.miles;
+    $.ajax({
+      'url': 'https://www.zipcodeapi.com/rest/js-AMERYbpnnuIK8RLikdCUSyU2WGY3e5TPRyGQJ5e7AXRIOD18QD2JbWM8CKbRP5GH/radius.json/'+vm.user.zip+'/'+vm.miles+'/mile',
+      'dataType': 'json'
+    }).done(function(data) {
+        // console.log('success response');
+        console.log(data);
+        vm.filterZips = data.zip_codes;
+        vm.zipFilteredEvents = [];
+        var i = 0;
+        while (i < vm.events.length) {
+          var match = false;
+          for (var j = 0; j < vm.filterZips.length; j++) {
+            if (vm.events[i].zip === vm.filterZips[j].zip_code) {
+              match = true;
+              // vm.zipFilteredEvents.push(vm.events[j]);
+            }
+          }
+          if (match === false) {
+            vm.events.splice(i, 1);
+          } else {
+            i++;
+          }
+        }
+        console.log(vm.events);
+        $scope.$apply();
+      }).fail(function() {
+        console.log('error');
+    });
+  };
+
+  vm.reset = function() {
+    $route.reload();
+  };
+
+  vm.distance = [
+      "5",
+      "10",
+      "20",
+      "50",
+      "100"
+  ];
 
   vm.rsvp = function(anEvent) {
     anEvent.rsvp = true;
