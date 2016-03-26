@@ -87,6 +87,18 @@ angular.module('capstoneApp.controllers', [])
     });
   };
 
+  $scope.zipFilter = function(miles, user) {
+    console.log($scope.user);
+  };
+
+  $scope.distance = [
+      "5",
+      "10",
+      "20",
+      "50",
+      "100"
+  ];
+
 })
 
 .controller('UserCtrl', function ($scope, getUserService) {

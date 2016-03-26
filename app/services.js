@@ -135,6 +135,21 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
+.service('zipFilterService', ['$http', function($http) {
+  return {
+    zipFilter: function(miles) {
+      return $http.get('https://www.zipcodeapi.com/rest/Ld7VZyffImDkZc5HoWceba1XZRCzzl8lzggzOwOxTsSSEXz2TLg5Wi3VaFvK1E5A/radius.json/{{user.zip}}/{{zipFilter.distance}}/mile')
+        .then(function(response) {
+          // console.log('success response');
+          return response;
+        }, function(error) {
+          // console.log('service errors');
+          return error;
+      });
+    }
+  };
+}])
+
 .service('AuthInterceptor', function($location, $q) {
   return {
     request: function(config) {
