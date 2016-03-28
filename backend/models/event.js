@@ -21,6 +21,7 @@ var Event = Waterline.Collection.extend({
     zip: 'string',
     eventDescript: 'string',
     eventImg: 'string',
+    owner_id: 'string',
 
     owners: {
       collection: 'user',

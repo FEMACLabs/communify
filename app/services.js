@@ -88,10 +88,45 @@ angular.module('capstoneApp.services', [])
     // };
   }])
 
+  .service('getOneEventService', ['$http', function($http) {
+    return {
+      getOneEvent: function(thisEvent) {
+        return $http.get('http://localhost:3000/events/' + thisEvent.id)
+        .then(function(response) {
+          // console.log('success response');
+          return response;
+        }, function(error) {
+          // console.log('service errors');
+          return error;
+        });
+      }
+    };
+  }])
+
 .service('postEventService', ['$http', function($http) {
   return {
     submitEvent: function(anEvent) {
+      var userID = localStorage.getItem('id');
+      anEvent.owner_id = userID;
       return $http.post('http://localhost:3000/events', anEvent)
+        .then(function(response) {
+          // console.log('success response');
+          return response;
+        }, function(error) {
+          // console.log('service errors');
+          return error;
+      });
+    }
+  };
+}])
+
+.service('putEventService', ['$http', function($http) {
+  return {
+    submitEditEvent: function(anEvent) {
+      console.log(anEvent);
+      // var userID = localStorage.getItem('id');
+      console.log(anEvent.id);
+      return $http.put('http://localhost:3000/events' + anEvent.id, anEvent)
         .then(function(response) {
           // console.log('success response');
           return response;

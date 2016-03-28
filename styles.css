@@ -20,7 +20,7 @@ a {
 }
 
 .boxshadow {
-  box-shadow: 0 3px 9px grey;
+  box-shadow: 0 0 10px rgb(23, 23, 23);
 }
 
 .distance-box {
@@ -109,6 +109,13 @@ a {
 .profile-img {
   object-fit: cover;
   max-height: 15em;
+  width: 100%;
+}
+
+.profile-thumbnail {
+  object-fit: cover;
+  border-radius: 15px;
+  margin-right: 5px;
 }
 
 .img-padding {

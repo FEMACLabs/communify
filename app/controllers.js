@@ -8,6 +8,8 @@ angular.module('capstoneApp.controllers', [])
 
 .controller('MainCtrl', function ($scope, $location, $mdDialog, $mdMedia) {
 
+  var vm = this;
+
   $scope.status = '  ';
   $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 
@@ -53,6 +55,7 @@ angular.module('capstoneApp.controllers', [])
   };
 
   $scope.editProfile = function(ev) {
+    console.log(ev);
     var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
     $mdDialog.show({
       controller: DialogController,
@@ -86,6 +89,24 @@ angular.module('capstoneApp.controllers', [])
     });
   };
 
+  // $scope.editEvent = function(ev) {
+  //   console.log(ev);
+  //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+  //   $mdDialog.show({
+  //     controller: DialogController,
+  //     templateUrl: 'editEventForm.html',
+  //     parent: angular.element(document.body),
+  //     targetEvent: ev,
+  //     clickOutsideToClose:false,
+  //     fullscreen: useFullScreen
+  //   });
+  //   $scope.$watch(function() {
+  //     return $mdMedia('xs') || $mdMedia('sm');
+  //   }, function(wantsFullScreen) {
+  //     $scope.customFullscreen = (wantsFullScreen === true);
+  //   });
+  // };
+
 })
 
 .controller('UserCtrl', function ($scope, $mdDialog, getUserService, getEventService) {
@@ -100,7 +121,6 @@ angular.module('capstoneApp.controllers', [])
     vm.loadEvents = getEventService.all()
     .then(function(eventsArr) {
       vm.events = eventsArr.data;
-      console.log(vm.events);
     })
     .catch(function(err) {
       console.err(new Error(err));
@@ -141,7 +161,7 @@ angular.module('capstoneApp.controllers', [])
 
 })
 
-.controller('EventCtrl', function ($scope, $location, $route, getEventService, getUserService, rsvpService, removeRsvpService) {
+.controller('EventCtrl', function ($scope, $location, $route, $mdDialog, $mdMedia, getEventService, getUserService, rsvpService, removeRsvpService) {
 
   var vm = this;
 
@@ -216,11 +236,67 @@ angular.module('capstoneApp.controllers', [])
     });
   };
 
+  vm.getOneEvent = function(thisEvent, eventId) {
+    console.log(thisEvent);
+    console.log(eventId);
+    vm.loadEvents = getEventService.all()
+    .then(function(eventsArr) {
+      for (var i  = 0; i < vm.events.length; i++) {
+        if (eventId === vm.events[i].id) {
+          vm.thisIndex = i;
+          // console.log(vm.events[vm.thisIndex]);
+          vm.thisEvent = eventsArr.data[vm.thisIndex];
+          console.log(vm.thisEvent);
+          vm.editEvent(vm.thisEvent);
+        }
+      }
+    })
+    .catch(function(err) {
+      console.err(new Error(err));
+    });
+  };
+
+  vm.editEvent = function(ev) {
+    console.log(ev);
+    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: 'editEventForm.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:false,
+      fullscreen: useFullScreen
+    });
+    $scope.$watch(function() {
+      return $mdMedia('xs') || $mdMedia('sm');
+    }, function(wantsFullScreen) {
+      $scope.customFullscreen = (wantsFullScreen === true);
+    });
+  };
+
+  // var editEvent = function(ev) {
+  //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+  //   $mdDialog.show({
+  //     controller: DialogController,
+  //     templateUrl: 'editEventForm.html',
+  //     parent: angular.element(document.body),
+  //     targetEvent: ev,
+  //     clickOutsideToClose:false,
+  //     fullscreen: useFullScreen
+  //   });
+  //   $scope.$watch(function() {
+  //     return $mdMedia('xs') || $mdMedia('sm');
+  //   }, function(wantsFullScreen) {
+  //     $scope.customFullscreen = (wantsFullScreen === true);
+  //   });
+  // };
+
+
 });
 
-app.controller('DialogController', ['$scope', '$location', '$route', '$mdDialog', 'signupService', 'signinService', 'getUserService', 'putUserService', 'postEventService']);
+app.controller('DialogController', ['$scope', '$location', '$route', '$mdDialog', 'signupService', 'signinService', 'getUserService', 'putUserService', 'postEventService', 'putEventService']);
 
-function DialogController ($scope, $location, $route, $mdDialog, signupService, signinService, getUserService, putUserService, postEventService) {
+function DialogController ($scope, $location, $route, $mdDialog, signupService, signinService, getUserService, putUserService, postEventService, putEventService) {
 
   $scope.submitSignup = function(user) {
 
@@ -269,11 +345,21 @@ $scope.submitSignin = function(user) {
       $scope.date.getDate());
 
   $scope.submitEvent = function(anEvent) {
+    anEvent.is_owner = true;
     postEventService.submitEvent(anEvent).then(function(response) {
     console.log(response);
     $mdDialog.hide();
     $route.reload();
   });
+};
+
+$scope.submitEditEvent = function(anEvent) {
+  anEvent.is_owner = true;
+  putEventService.submitEditEvent(anEvent).then(function(response) {
+  console.log(response);
+  $mdDialog.hide();
+  $route.reload();
+});
 };
 
   $scope.hide = function() {

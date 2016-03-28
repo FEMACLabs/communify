@@ -15,7 +15,7 @@
         </md-menu-item>
         <md-menu-divider></md-menu-divider>
         <md-menu-item>
-          <md-button ng-click="editProfile($event)">
+          <md-button ng-click="editProfile(event)">
             Edit Profile
           </md-button>
         </md-menu-item>
@@ -103,12 +103,13 @@
         </md-card>
       </md-card-text>
 
-      <md-card ng-repeat="event in EC.events" layout="row" class="md-hue-1">
+      <md-card ng-repeat="event in EC.events" layout="row" class="md-hue-1" ng-controller="UserCtrl as UC">
         <md-card-title flex-xs flex-gt-xs="75">
           <md-card-title-text layout="column">
             <span>
-              <img src="img/icons/ic_forward_red_24dp_2x.png" ng-show="!event.rsvp" class="icon inline">
-              <img src="img/icons/ic_check_circle_green_24dp_2x.png" ng-show="event.rsvp" class="icon inline">
+              <img src="img/icons/ic_forward_red_24dp_2x.png" ng-show="!event.rsvp && !event.is_owner" class="icon inline">
+              <img src="img/icons/ic_check_circle_green_24dp_2x.png" ng-show="event.rsvp && !event.is_owner" class="icon inline">
+              <img src="{{ UC.user.userImg }}" ng-show="event.is_owner" class="icon inline profile-thumbnail">
               <span class="md-display-1" name="title" ng-model="title">{{ event.title }}</span>
             </span>
             <div class="title-spacer"></div>
@@ -125,13 +126,17 @@
         <md-card-title class="img-padding">
           <md-card-actions layout="column" layout-align="center">
             <img src="{{ event.eventImg }}" class="md-card-img event-img">
-            <md-button class="md-accent md-raised rsvp-button" ng-show="!event.rsvp" ng-click="EC.rsvp(event)">
+            <md-button class="md-accent md-raised rsvp-button" ng-show="!event.rsvp && !event.is_owner" ng-click="EC.rsvp(event)">
               <md-icon md-svg-src="img/icons/ic_add_circle_white_24px.svg" class="margin-bottom"></md-icon>
               <span class="md-title">RSVP</span>
             </md-button>
-            <md-button class="md-primary md-raised rsvp-button" ng-show="event.rsvp" ng-click="EC.removersvp(event)">
+            <md-button class="md-primary md-raised rsvp-button" ng-show="event.rsvp && !event.is_owner" ng-click="EC.removersvp(event)">
               <md-icon md-svg-src="img/icons/ic_remove_circle_white_24px.svg" class="margin-bottom"></md-icon>
               <span class="md-title">Remove</span>
+            </md-button>
+            <md-button class="md-accent md-raised rsvp-button" ng-show="event.is_owner" ng-click="EC.getOneEvent($event, event.id)">
+              <md-icon md-svg-src="img/icons/ic_mode_edit_white_24px.svg" class="margin-bottom"></md-icon>
+              <span class="md-title">Edit</span>
             </md-button>
           </md-card-actions>
         </md-card-title>

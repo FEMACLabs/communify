@@ -9,6 +9,10 @@ var secret = 'temporarySecret';
 router.get('/', function(req, res) {
   req.models.event.find().populate('owners').exec(function(err, events) {
     for (var i = 0; i < events.length; i++) {
+      console.log(events[i].owner_id);
+      if (req.user.id.toString() === events[i].owner_id) {
+        events[i].is_owner = true;
+      }
       // console.log(events[i].owners);
       for (var j = 0; j < events[i].owners.length; j++) {
         var id = events[i].owners[j].id;
@@ -26,6 +30,7 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
   console.log(req.body);
   req.models.event.create(req.body, function(err, event) {
+    console.log(req.user);
     if(err) return res.json({ err: err }, 500);
     res.json(event);
   });
