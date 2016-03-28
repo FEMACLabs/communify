@@ -107,6 +107,14 @@ angular.module('capstoneApp.controllers', [])
   //   });
   // };
 
+  $scope.myEvents = function() {
+    $location.path('/home/myevents');
+  };
+
+  $scope.allEvents = function() {
+    $location.path('/home');
+  };
+
 })
 
 .controller('UserCtrl', function ($scope, $mdDialog, getUserService, getEventService) {

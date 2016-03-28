@@ -9,7 +9,7 @@
       </md-button>
       <md-menu-content width="2">
         <md-menu-item>
-          <md-button href="#/home/myevents">
+          <md-button ng-click="myEvents()">
             My Events
           </md-button>
         </md-menu-item>
@@ -100,8 +100,8 @@
               </md-button>
             </div>
           </div>
-        </md-card>
-      </md-card-text>
+        </md-card-text>
+      </md-card>
 
       <md-card ng-repeat="event in EC.events" layout="row" class="md-hue-1" ng-controller="UserCtrl as UC">
         <md-card-title flex-xs flex-gt-xs="75">
