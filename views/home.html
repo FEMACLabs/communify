@@ -114,7 +114,7 @@
         </md-card-text>
       </md-card>
 
-      <md-card ng-repeat="event in EC.events" layout="row" class="md-hue-1" ng-controller="UserCtrl as UC">
+      <md-card ng-repeat="event in EC.events | orderBy:'date'" layout="row" class="md-hue-1" ng-controller="UserCtrl as UC">
         <md-card-title flex-xs flex-gt-xs="75">
           <md-card-title-text layout="column">
             <span>

@@ -7,6 +7,14 @@ a {
   text-decoration: none;
 }
 
+.communify {
+  max-width: 75%;
+  max-height: 450px;
+  /*position: absolute;*/
+  /*margin-left: -37%;*/
+  margin-top: -85%;
+}
+
 .fixed-profile {
   position: fixed;
 }
@@ -75,7 +83,12 @@ a {
 }
 
 .start-btn {
-  margin-top: -350px;
+  background-color: #C62828;
+  box-shadow: 0 0 10px 0 rgb(185, 185, 185);
+}
+
+.font-white {
+  color: white;
 }
 
 .event {
