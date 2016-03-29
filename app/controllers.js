@@ -321,9 +321,9 @@ angular.module('capstoneApp.controllers', [])
 
 });
 
-app.controller('DialogController', ['$scope', '$location', '$route', '$mdDialog', 'signupService', 'signinService', 'getUserService', 'putUserService', 'postEventService', 'putEventService']);
+app.controller('DialogController', ['$scope', '$location', '$route', '$mdDialog', 'signupService', 'signinService', 'getUserService', 'putUserService', 'postEventService', 'putEventService', 'deleteEventService']);
 
-function DialogController ($scope, $location, $route, $mdDialog, signupService, signinService, getUserService, putUserService, postEventService, putEventService) {
+function DialogController ($scope, $location, $route, $mdDialog, signupService, signinService, getUserService, putUserService, postEventService, putEventService, deleteEventService) {
 
   $scope.submitSignup = function(user) {
 
@@ -385,6 +385,27 @@ $scope.submitEditEvent = function(anEvent) {
   $mdDialog.hide();
   $route.reload();
 });
+};
+
+$scope.deleteEvent = function(anEvent) {
+  deleteEventService.deleteEvent(anEvent).then(function(response) {
+  console.log(response);
+  $mdDialog.hide();
+  $route.reload();
+});
+};
+
+$scope.showConfirm = function(ev, anEvent) {
+  // Appending dialog to document.body to cover sidenav in docs app
+  var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to delete this event?')
+        .ariaLabel('Delete event')
+        .targetEvent(ev)
+        .ok('Delete')
+        .cancel('Cancel');
+  $mdDialog.show(confirm).then(function() {
+    $scope.deleteEvent(anEvent);
+  });
 };
 
   $scope.hide = function() {

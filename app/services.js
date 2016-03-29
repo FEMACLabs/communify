@@ -137,6 +137,23 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
+.service('deleteEventService', ['$http', function($http) {
+  return {
+    deleteEvent: function(thisEvent) {
+      console.log(thisEvent);
+      // var userID = localStorage.getItem('id');
+      return $http.delete('http://localhost:3000/events/' + thisEvent.id, thisEvent)
+        .then(function(response) {
+          // console.log('success response');
+          return response;
+        }, function(error) {
+          // console.log('service errors');
+          return error;
+      });
+    }
+  };
+}])
+
 .service('rsvpService', ['$http', function($http) {
   return {
     rsvp: function(anEvent) {

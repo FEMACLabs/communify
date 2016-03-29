@@ -12,7 +12,7 @@ a {
   max-height: 450px;
   /*position: absolute;*/
   /*margin-left: -37%;*/
-  margin-top: -85%;
+  margin-top: -90%;
 }
 
 .fixed-profile {
@@ -84,7 +84,7 @@ a {
 
 .start-btn {
   background-color: #C62828;
-  box-shadow: 0 0 10px 0 rgb(185, 185, 185);
+  box-shadow: 0 0 7px 2px rgb(185, 185, 185);
 }
 
 .font-white {

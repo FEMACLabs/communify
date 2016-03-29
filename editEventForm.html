@@ -41,13 +41,12 @@
               <div ng-message="required">Please enter an image url for your event</div>
             </div>
           </md-input-container>
-          <span>
-            <md-datepicker class="md-hue-1" ng-model="EC.thisEvent.date" md-placeholder="Enter date"
-            md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
-            <md-input-container class="md-icon-float">
-              <input type="time" name="time" ng-model="EC.thisEvent.time">
-            </md-input-container>
-          </span>
+          <md-input-container class="md-icon-float">
+            <input type="text" ng-model="EC.thisEvent.date | date" name="date" placeholder="Date" required/>
+          </md-input-container>
+          <md-input-container class="md-icon-float">
+            <input type="text" name="time" ng-model="EC.thisEvent.time | date:'shortTime'">
+          </md-input-container>
         </md-content>
       </div>
     </md-dialog-content>
@@ -56,7 +55,7 @@
         Edit Event
       </md-button>
       <span flex></span>
-      <md-button class="md-body-2 delete-event" ng-click="deleteEvent()">Delete Event</md-button>
+      <md-button class="md-body-2 delete-event" ng-click="showConfirm($event, EC.thisEvent)">Delete Event</md-button>
       <span flex></span>
       <md-button class="md-raised md-primary" ng-click="cancel()" style="margin-right:20px;">
         Cancel
