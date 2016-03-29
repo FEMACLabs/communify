@@ -88,18 +88,18 @@ angular.module('capstoneApp.services', [])
     // };
   }])
 
-  .service('getOneEventService', ['$http', function($http) {
+  .service('getOneEventService', [function() {
     return {
-      getOneEvent: function(thisEvent) {
-        return $http.get('http://localhost:3000/events/' + thisEvent.id)
-        .then(function(response) {
-          // console.log('success response');
-          return response;
-        }, function(error) {
-          // console.log('service errors');
-          return error;
-        });
-      }
+      // getOneEvent: function(thisEvent) {
+      //   return $http.get('http://localhost:3000/events/' + thisEvent.id)
+      //   .then(function(response) {
+      //     // console.log('success response');
+      //     return response;
+      //   }, function(error) {
+      //     // console.log('service errors');
+      //     return error;
+      //   });
+      // }
     };
   }])
 
@@ -122,11 +122,10 @@ angular.module('capstoneApp.services', [])
 
 .service('putEventService', ['$http', function($http) {
   return {
-    submitEditEvent: function(anEvent) {
-      console.log(anEvent);
+    submitEditEvent: function(thisEvent) {
+      console.log(thisEvent);
       // var userID = localStorage.getItem('id');
-      console.log(anEvent.id);
-      return $http.put('http://localhost:3000/events' + anEvent.id, anEvent)
+      return $http.put('http://localhost:3000/events/' + thisEvent.id, thisEvent)
         .then(function(response) {
           // console.log('success response');
           return response;

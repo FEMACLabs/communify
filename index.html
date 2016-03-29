@@ -16,20 +16,6 @@
 
   <body ng-cloak>
 
-      <md-toolbar class="navbar boxshadow" ng-controller="UserCtrl as UC">
-        <div class="md-toolbar-tools">
-          <img src="./img/solidarity.png" class="solidarity">
-            <span class="md-headline"><a href="/#/home">Communify</a></span>
-          <span flex></span>
-          <md-button class="md-raised md-primary" ng-show="!UC.user.id" ng-click="signin()">
-            <span class="md-subhead log-button">Log in</span>
-          </md-button>
-          <md-button class="md-raised md-primary" ng-show="UC.user.id" ng-click="signout()">
-            <span class="md-subhead log-button">Log out</span>
-          </md-button>
-        </div>
-      </md-toolbar>
-
     <div ng-view></div>
 
     <!-- Angular Material requires Angular.js Libraries -->

@@ -1,8 +1,22 @@
+<md-toolbar class="navbar boxshadow">
+  <div class="md-toolbar-tools">
+    <img src="./img/solidarity.png" class="solidarity">
+      <span class="md-headline"><a href="/#/home">Communify</a></span>
+    <span flex></span>
+    <md-button class="md-raised md-primary" ng-show="!UC.user.id" ng-click="signin()">
+      <span class="md-subhead log-button">Log in</span>
+    </md-button>
+    <md-button class="md-raised md-primary" ng-show="UC.user.id" ng-click="signout()">
+      <span class="md-subhead log-button">Log out</span>
+    </md-button>
+  </div>
+</md-toolbar>
+
 <div class="container">
   <div class="main-window" layout="column" layout-align="end center">
     <img src="./img/mlkmarch.jpeg" class="mlkmarch">
     <md-button class="md-raised md-primary start-btn" ng-click="signup()" layout-align="center">
-      <span class="md-headline"> Get Started </span>
+      <span class="md-display-1">Get Started</span>
     </md-button>
   </div>
 </div>

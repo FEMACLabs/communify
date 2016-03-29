@@ -5,9 +5,17 @@
     <span flex></span>
     <md-menu>
       <md-button aria-label="Open user menu" ng-click="UC.openMenu($mdOpenMenu, $event)">
-        <span>{{ UC.user.name }}</span>
+        <md-icon md-svg-src="img/icons/ic_arrow_drop_down_white_24px.svg" class="margin-bottom"></md-icon>
+        <span ng-show="!UC.user.name">Welcome to Communify!</span>
+        <span ng-show="UC.user.name">{{ UC.user.name }}</span>
       </md-button>
-      <md-menu-content width="2">
+      <md-menu-content class="menu-dropdown">
+        <md-menu-item>
+          <md-button ng-click="rsvps()">
+            RSVPs
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
         <md-menu-item>
           <md-button ng-click="myEvents()">
             My Events
@@ -33,17 +41,20 @@
 <div class="ng-scope" ng-controller="MainCtrl as MC">
   <div class="navspacer"></div>
   <md-content class="md-padding layout-xs-column layout-row" layout-xs="column" layout="row">
-    <div flex-xs flex-gt-xs="25" layout="column" class="layout-column flex-xs flex-gt-xs-25 fixed-profile" ng-controller="UserCtrl as UC">
+    <div flex-xs flex-gt-xs="25" layout="column" class="layout-column flex-xs flex-gt-xs-25 fixed-profile" ng-controller="UserCtrl as UC" ng-cloak>
 
       <md-card class="md-hue-1">
-        <img src="{{ UC.user.userImg }}" class="profile-img">
+        <img src="http://www.anarkismo.net/attachments/nov2010/clenched_fist.jpg" class="profile-img" ng-show="!UC.user.userImg">
+        <img src="{{ UC.user.userImg }}" class="profile-img" ng-show="UC.user.userImg">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">{{ UC.user.name }}</span>
+            <span class="md-headline" ng-show="!UC.user.name">Welcome to Communify!</span>
+            <span class="md-headline" ng-show="UC.user.name">{{ UC.user.name }}</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
-          <p>{{ UC.user.userDescript }}</p>
+          <p ng-show="!UC.user.userDescript">This is your profile section. Click the 'Edit Profile' button below to change your name, image, description, and location.</p>
+          <p ng-show="UC.user.userDescript">{{ UC.user.userDescript }}</p>
         </md-card-content>
         <md-card-actions layout="row" layout-align="start center">
           <md-button class="md-primary md-raised" ng-click="editProfile($event)" flex="50" flex-gt-md="auto">
@@ -62,7 +73,7 @@
 
     <div flex-xs flex-gt-xs="25" layout="column" class="layout-column flex-xs flex-gt-xs-25"></div>
 
-    <div flex-xs flex-gt-xs="75" layout="column" class="layout-column flex-xs flex-gt-xs-75 event" ng-controller="EventCtrl as EC">
+    <div flex-xs flex-gt-xs="75" layout="column" class="layout-column flex-xs flex-gt-xs-75 event" ng-controller="EventCtrl as EC" id="eventsList">
 
       <!-- <md-toolbar md-scroll-shrink class="navbar">
           <div class="md-toolbar-tools" layout-align="center center">
@@ -123,7 +134,7 @@
             <p>{{ event.eventDescript }}</p>
           </md-card-title-text>
         </md-card-title>
-        <md-card-title class="img-padding">
+        <md-card-title class="img-padding" ng-controller="EventCtrl as EC">
           <md-card-actions layout="column" layout-align="center">
             <img src="{{ event.eventImg }}" class="md-card-img event-img">
             <md-button class="md-accent md-raised rsvp-button" ng-show="!event.rsvp && !event.is_owner" ng-click="EC.rsvp(event)">
@@ -134,7 +145,7 @@
               <md-icon md-svg-src="img/icons/ic_remove_circle_white_24px.svg" class="margin-bottom"></md-icon>
               <span class="md-title">Remove</span>
             </md-button>
-            <md-button class="md-accent md-raised rsvp-button" ng-show="event.is_owner" ng-click="EC.getOneEvent($event, event.id)">
+            <md-button class="md-accent md-raised rsvp-button" ng-show="event.is_owner" ng-click="EC.getOneEvent($event, event)">
               <md-icon md-svg-src="img/icons/ic_mode_edit_white_24px.svg" class="margin-bottom"></md-icon>
               <span class="md-title">Edit</span>
             </md-button>

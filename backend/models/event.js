@@ -15,8 +15,8 @@ var Event = Waterline.Collection.extend({
 
   attributes: {
     title: 'string',
-    date: 'string',
-    time: 'string',
+    date: 'Date',
+    time: 'Date',
     location: 'string',
     zip: 'string',
     eventDescript: 'string',

@@ -111,6 +111,10 @@ angular.module('capstoneApp.controllers', [])
     $location.path('/home/myevents');
   };
 
+  $scope.rsvps = function() {
+    $location.path('/home/rsvps');
+  };
+
   $scope.allEvents = function() {
     $location.path('/home');
   };
@@ -169,9 +173,11 @@ angular.module('capstoneApp.controllers', [])
 
 })
 
-.controller('EventCtrl', function ($scope, $location, $route, $mdDialog, $mdMedia, getEventService, getUserService, rsvpService, removeRsvpService) {
+.controller('EventCtrl', function ($scope, $location, $route, $mdDialog, $mdMedia, getEventService, getUserService, rsvpService, removeRsvpService, getOneEventService) {
 
   var vm = this;
+
+  vm.thisEvent = getOneEventService.thisEvent;
 
   vm.loadEvents = getEventService.all()
   .then(function(eventsArr) {
@@ -244,33 +250,46 @@ angular.module('capstoneApp.controllers', [])
     });
   };
 
-  vm.getOneEvent = function(thisEvent, eventId) {
+  vm.getOneEvent = function(ev, thisEvent) {
     console.log(thisEvent);
-    console.log(eventId);
-    vm.loadEvents = getEventService.all()
-    .then(function(eventsArr) {
-      for (var i  = 0; i < vm.events.length; i++) {
-        if (eventId === vm.events[i].id) {
-          vm.thisIndex = i;
-          // console.log(vm.events[vm.thisIndex]);
-          vm.thisEvent = eventsArr.data[vm.thisIndex];
-          console.log(vm.thisEvent);
-          vm.editEvent(vm.thisEvent);
-        }
-      }
-    })
-    .catch(function(err) {
-      console.err(new Error(err));
-    });
-  };
-
-  vm.editEvent = function(ev) {
+    // console.log(eventId);
+  //   vm.loadEvents = getEventService.all()
+  //   .then(function(eventsArr) {
+  //     for (var i  = 0; i < vm.events.length; i++) {
+  //       if (eventId === vm.events[i].id) {
+  //         vm.thisIndex = i;
+  //         // console.log(vm.events[vm.thisIndex]);
+  //         vm.thisEvent = eventsArr.data[vm.thisIndex];
+  //         console.log(vm.thisEvent);
+  //         vm.editEvent(vm.thisEvent);
+  //       }
+  //     }
+  //   })
+  //   .catch(function(err) {
+  //     console.err(new Error(err));
+  //   });
+  // };
+  //
+  // vm.editEvent = function(ev) {
     console.log(ev);
+    getOneEventService.thisEvent = {
+      id: thisEvent.id,
+      title: thisEvent.title,
+      location: thisEvent.location,
+      zip: thisEvent.zip,
+      eventDescript: thisEvent.eventDescript,
+      eventImg: thisEvent.eventImg,
+      date: thisEvent.date,
+      time: thisEvent.time
+    };
     var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+    var element = angular.element('#eventsList');
+    console.log(element);
     $mdDialog.show({
       controller: DialogController,
       templateUrl: 'editEventForm.html',
-      parent: angular.element(document.body),
+      // parent: angular.element(document.body),
+      parent: element,
       targetEvent: ev,
       clickOutsideToClose:false,
       fullscreen: useFullScreen
@@ -353,7 +372,6 @@ $scope.submitSignin = function(user) {
       $scope.date.getDate());
 
   $scope.submitEvent = function(anEvent) {
-    anEvent.is_owner = true;
     postEventService.submitEvent(anEvent).then(function(response) {
     console.log(response);
     $mdDialog.hide();
@@ -362,7 +380,6 @@ $scope.submitSignin = function(user) {
 };
 
 $scope.submitEditEvent = function(anEvent) {
-  anEvent.is_owner = true;
   putEventService.submitEditEvent(anEvent).then(function(response) {
   console.log(response);
   $mdDialog.hide();

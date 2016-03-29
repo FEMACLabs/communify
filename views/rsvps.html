@@ -17,8 +17,8 @@
         </md-menu-item>
         <md-menu-divider></md-menu-divider>
         <md-menu-item>
-          <md-button ng-click="rsvps()">
-            RSVPs
+          <md-button ng-click="myEvents()">
+            My Events
           </md-button>
         </md-menu-item>
         <md-menu-divider></md-menu-divider>
@@ -38,10 +38,10 @@
   </div>
 </md-toolbar>
 
-<div class="ng-scope" ng-controller="UserCtrl as UC">
+<div class="ng-scope" ng-controller="MainCtrl as MC">
   <div class="navspacer"></div>
   <md-content class="md-padding layout-xs-column layout-row" layout-xs="column" layout="row">
-    <div flex-xs flex-gt-xs="25" layout="column" class="layout-column flex-xs flex-gt-xs-25 fixed-profile">
+    <div flex-xs flex-gt-xs="25" layout="column" class="layout-column flex-xs flex-gt-xs-25 fixed-profile" ng-controller="UserCtrl as UC">
 
       <md-card class="md-hue-1">
         <img src="http://www.anarkismo.net/attachments/nov2010/clenched_fist.jpg" class="profile-img" ng-show="!UC.user.userImg">
@@ -72,23 +72,23 @@
 
     <div flex-xs flex-gt-xs="25" layout="column" class="layout-column flex-xs flex-gt-xs-25"></div>
 
-    <div flex-xs flex-gt-xs="75" layout="column" class="layout-column flex-xs flex-gt-xs-75 event" ng-controller="EventCtrl as EC">
+    <div flex-xs flex-gt-xs="75" layout="column" class="layout-column flex-xs flex-gt-xs-75 event" ng-controller="UserEventCtrl as UEC">
 
       <md-card class="md-primary md-hue-1">
         <md-card-text>
           <div class="md-padding" ng-cloak>
             <div layout="row" layout-align="start center">
-              <span class="md-display-1">My Events</span>
+              <span class="md-display-1">RSVPs</span>
             </div>
           </div>
         </md-card-text>
       </md-card>
 
-      <md-card ng-repeat="event in EC.events" layout="row" class="md-hue-1" ng-show="event.is_owner">
+      <md-card ng-repeat="event in UEC.userEvents" layout="row" class="md-hue-1">
         <md-card-title flex-xs flex-gt-xs="75">
           <md-card-title-text layout="column">
             <span>
-              <img src="{{ UC.user.userImg }}" class="icon inline profile-thumbnail">
+              <img src="img/icons/ic_check_circle_green_24dp_2x.png" class="icon inline">
               <span class="md-display-1" name="title" ng-model="title">{{ event.title }}</span>
             </span>
             <div class="title-spacer"></div>
@@ -105,9 +105,9 @@
         <md-card-title class="img-padding">
           <md-card-actions layout="column" layout-align="center center">
             <img src="{{ event.eventImg }}" class="md-card-img event-img">
-            <md-button class="md-accent md-raised rsvp-button" ng-click="EC.getOneEvent($event, event)">
-              <md-icon md-svg-src="img/icons/ic_mode_edit_white_24px.svg" class="margin-bottom"></md-icon>
-              <span class="md-title">Edit</span>
+            <md-button class="md-primary md-raised rsvp-button" ng-click="UEC.removersvp(event)">
+              <md-icon md-svg-src="img/icons/ic_remove_circle_white_24px.svg" class="margin-bottom"></md-icon>
+              <span class="md-title">Remove</span>
             </md-button>
           </md-card-actions>
         </md-card-title>
