@@ -95,6 +95,15 @@ a {
   width: 80%;
 }
 
+.time {
+  margin-left: 50px;
+  margin-top: 43px;
+}
+
+.date {
+  margin-left: 10px;
+}
+
 .delete-event {
   color: rgb(203, 23, 5);
   text-decoration: underline;
