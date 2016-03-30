@@ -84,7 +84,7 @@
         </md-card-text>
       </md-card>
 
-      <md-card ng-repeat="event in UEC.userEvents" layout="row" class="md-hue-1">
+      <md-card ng-repeat="event in UEC.userEvents | orderBy:'date'" layout="row" class="md-hue-1">
         <md-card-title flex-xs flex-gt-xs="75">
           <md-card-title-text layout="column">
             <span>

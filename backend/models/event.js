@@ -11,12 +11,12 @@ var Waterline = require('waterline');
 var Event = Waterline.Collection.extend({
 
   identity: 'event',
-  connection: 'myLocalDisk',
+  connection: 'myLocalPostgres',
 
   attributes: {
     title: 'string',
-    date: 'Date',
-    time: 'Date',
+    date: 'string',
+    time: 'string',
     location: 'string',
     zip: 'string',
     eventDescript: 'string',

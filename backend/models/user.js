@@ -11,7 +11,7 @@ var Waterline = require('waterline');
 var User = Waterline.Collection.extend({
 
   identity: 'user',
-  connection: 'myLocalDisk',
+  connection: 'myLocalPostgres',
 
   attributes: {
     email: 'string',
