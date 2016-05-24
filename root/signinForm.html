@@ -1,0 +1,53 @@
+<md-dialog aria-label="Log In" class="form md-hue-1" ng-cloak>
+  <form name="signin" ng-model="signin" ng-submit="submitSignin({email: email, password: password})">
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Log In</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_clear_black_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content class="md-no-momentum md-hue-1">
+
+          <md-input-container class="md-icon-float md-block">
+            <input ng-model="email" name="email" type="email" placeholder="Email" required/>
+            <div ng-messages="signin.email.$error">
+              <div ng-message="required">Please enter email you signed up with</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float md-block">
+            <input ng-model="password" name="password" type="password" placeholder="Password" required/>
+            <div ng-messages="signin.password.$error">
+              <div ng-message="required">Please enter your password</div>
+            </div>
+          </md-input-container>
+
+          <div layout="row" layout-sm="column" layout-align="space-around" ng-show="authAttempt">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+          </div>
+
+          <div layout="row" layout-sm="column" layout-align="space-around" ng-show="invalidUser" class="error-text">Invalid information. Log in or create a new account.</div>
+
+        </md-content>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-accent" type="submit" ng-disabled="!signin.$valid">
+        Log In
+      </md-button>
+      <span flex></span>
+      <md-button class="md-raised md-primary" ng-click="cancel()" style="margin-right:20px;">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>

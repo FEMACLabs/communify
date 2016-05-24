@@ -1,0 +1,77 @@
+<md-dialog aria-label="Edit Event" class="md-hue-1" ng-controller="EventCtrl as EC" ng-cloak>
+  <form name="editEvent" ng-model="editEvent" ng-submit="submitEditEvent(EC.thisEvent)">
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Event</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_clear_black_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content class="md-no-momentum md-hue-1">
+
+          <md-input-container class="md-icon-float md-block">
+            <!-- Use floating label instead of placeholder -->
+            <input ng-model="EC.thisEvent.title" name="title" type="text" placeholder="Title" required/>
+            <div ng-messages="editEvent.title.$error">
+              <div ng-message="required">Please enter a title for your event</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float location-input">
+            <input ng-model="EC.thisEvent.location" name="location" type="text" placeholder="Location" required/>
+            <div ng-messages="createEvent.location.$error">
+              <div ng-message="required">Please enter a location for your event</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float zip-input">
+            <input ng-model="EC.thisEvent.zip" name="zip" type="text" placeholder="Zip" required/>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float md-block">
+            <!-- Use floating placeholder instead of label -->
+            <textarea ng-model="EC.thisEvent.eventDescript" name="eventDescript" cols="50" rows="3" placeholder="Description" required/></textarea>
+            <div ng-messages="createEvent.eventDescript.$error">
+              <div ng-message="required">Please enter a description for your event</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float md-block">
+            <input ng-model="EC.thisEvent.eventImg" name="eventImg" type="text" placeholder="Event Image" required/>
+            <div ng-messages="createEvent.eventImg.$error">
+              <div ng-message="required">Please enter an image url for your event</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float">
+            <input type="text" ng-model="EC.thisEvent.date | date" name="date" placeholder="Date" required/>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float">
+            <input type="text" name="time" placeholder="Time" ng-model="EC.thisEvent.time | date:'shortTime'">
+          </md-input-container>
+
+        </md-content>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-accent" type="submit" ng-disabled="!editEvent.$valid">
+        Edit Event
+      </md-button>
+      <span flex></span>
+      <md-button class="md-body-2 delete-event" ng-click="showConfirm($event, EC.thisEvent)">Delete Event</md-button>
+      <span flex></span>
+      <md-button class="md-raised md-primary" ng-click="cancel()" style="margin-right:20px;">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>

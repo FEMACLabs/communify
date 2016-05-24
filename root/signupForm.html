@@ -1,0 +1,65 @@
+<md-dialog aria-label="Signup" class="form md-hue-1" ng-cloak>
+  <form name="signup" ng-model="signup" ng-submit="submitSignup({email: email, password: password})">
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Sign Up</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_clear_black_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content class="md-no-momentum md-hue-1">
+
+          <md-input-container class="md-icon-float md-block">
+            <!-- Use floating label instead of placeholder -->
+            <!-- <md-icon md-svg-src="img/icons/ic_email_black_24px.svg" class="email"></md-icon> -->
+            <input ng-model="email" name="email" type="email" placeholder="Email" required/>
+            <div ng-messages="signup.email.$error">
+              <div ng-message="required">Please enter valid email address</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float md-block">
+            <!-- <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon> -->
+            <input ng-model="password" name="password" type="password" placeholder="Password" required/>
+            <div ng-messages="signup.password.$error">
+              <div ng-message="required">Please enter a password</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float md-block">
+            <!-- <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="password"></md-icon> -->
+            <input ng-model="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required/>
+            <div ng-messages="signup.confirmPassword.$error">
+              <div ng-message="required">Please confirm your password</div>
+              <div ng-show="((signup.password.$dirty && signup.confirmPassword.$dirty) && (password != confirmPassword))">
+                <div class="noMatch">Passwords do not match</div>
+              </div>
+            </div>
+          </md-input-container>
+
+          <div layout="row" layout-sm="column" layout-align="space-around" ng-show="authAttempt">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+          </div>
+
+        </md-content>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-accent" type="submit" ng-disabled="!signup.$valid || password != confirmPassword">
+        Sign Up
+      </md-button>
+      <span flex></span>
+      <md-button class="md-raised md-primary" ng-click="cancel()" style="margin-right:20px;">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>

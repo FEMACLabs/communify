@@ -1,0 +1,63 @@
+<md-dialog aria-label="Edit Profile" class="md-hue-1" ng-controller="UserCtrl as UC" ng-cloak>
+  <form name="editProfile" ng-model="editProfile" ng-submit="submitProfile(UC.user)">
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Profile</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_clear_black_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-content class="md-no-momentum md-hue-1">
+
+          <md-input-container class="md-icon-float md-block">
+            <!-- Use floating label instead of placeholder -->
+            <input ng-model="UC.user.name" name="name" type="text" placeholder="Name" required/>
+            <div ng-messages="editProfile.name.$error">
+              <div ng-message="required">Please enter your name</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float md-block">
+            <input ng-model="UC.user.zip" name="zip" type="text" placeholder="Zip Code" required>
+            <div ng-messages="editProfile.zip.$error">
+              <div ng-message="required">Please enter your 5 digit zip code</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float md-block">
+            <!-- Use floating placeholder instead of label -->
+            <textarea ng-model="UC.user.userDescript" name="userDescript" cols="40" rows="3" placeholder="Why are you here?" required/></textarea>
+            <div ng-messages="editProfile.userDescript.$error">
+              <div ng-message="required">Please briefly decribe why you're here</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-icon-float md-block">
+            <input ng-model="UC.user.userImg" name="userImg" type="text" placeholder="Profile Image URL" required/>
+            <div ng-messages="editProfile.userImg.$error">
+              <div ng-message="required">Please enter an image URL for your profile</div>
+            </div>
+          </md-input-container>
+
+        </md-content>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-accent" type="submit" ng-disabled="!editProfile.$valid">
+        Update Profile
+      </md-button>
+      <span flex></span>
+      <md-button class="md-raised md-primary" ng-click="cancel()" style="margin-right:20px;">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>

@@ -1,0 +1,22 @@
+{
+  "name": "communify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattchessman/communify.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattchessman/communify/issues"
+  },
+  "homepage": "https://github.com/mattchessman/communify#readme",
+  "dependencies": {
+    "ng-file-upload": "^12.0.4"
+  }
+}
