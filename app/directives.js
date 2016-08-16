@@ -1,6 +1,6 @@
 // 'use strict';
 //
-// angular.module('capstoneApp.directives', ['UserCtrl'])
+// angular.module('communifyApp.directives', ['UserCtrl'])
 //
 // .directive('UserDirective', function {
 //

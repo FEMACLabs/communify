@@ -1,11 +1,19 @@
 'use strict';
 
-angular.module('capstoneApp.services', [])
+function dbURL() {
+  return {
+    url: "https://communifyapp.herokuapp.com"
+  };
+}
 
-.service('signinService', ['$http', function($http) {
+angular.module('communifyApp.services', [])
+
+.service('dbURL', dbURL)
+
+.service('signinService', ['$http', 'dbURL', function($http, dbURL) {
   return {
     submitSignin: function(user) {
-      return $http.post('http://localhost:3000/signin', user)
+      return $http.post(dbURL.url + '/signin', user)
       .then(function(response) {
         return response;
       }, function(error) {
@@ -16,10 +24,10 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
-.service('signupService', ['$http', function($http) {
+.service('signupService', ['$http', 'dbURL', function($http, dbURL) {
   return {
     submitSignup: function(user) {
-      return $http.post('http://localhost:3000/signup', user)
+      return $http.post(dbURL.url + '/signup', user)
       .then(function(response) {
         // console.log('success response');
         return response;
@@ -31,11 +39,11 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
-.service('getUserService', ['$http', function($http) {
+.service('getUserService', ['$http', 'dbURL', function($http, dbURL) {
 
     this.all = function(user) {
       var userID = localStorage.getItem('id');
-      return $http.get('http://localhost:3000/users/' + userID, user)
+      return $http.get(dbURL.url + '/users/' + userID, user)
       .then(function(response) {
         // console.log('success response');
         return response;
@@ -47,12 +55,12 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
-.service('putUserService', ['$http', function($http) {
+.service('putUserService', ['$http', 'dbURL', function($http, dbURL) {
   return {
     submitProfile: function(user) {
       var userID = localStorage.getItem('id');
       console.log(user);
-      return $http.put('http://localhost:3000/users/' + userID, user)
+      return $http.put(dbURL.url + '/users/' + userID, user)
         .then(function(response) {
           // console.log('success response');
           return response;
@@ -64,28 +72,17 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
-.service('getEventService', ['$http', function($http) {
+.service('getEventService', ['$http', 'dbURL', function($http, dbURL) {
     this.all = function() {
       return $http({
         method: 'GET',
-        url: 'http://localhost:3000/events'
+        url: dbURL.url + '/events'
       }).then(function(events) {
         return events;
       }, function(response) {
         console.error(new Error(response));
       });
     };
-    // this.remove = function(dream) {
-    //   dreams.splice(dreams.indexOf(dream), 1);
-    // };
-    // this.get = function(dreamId) {
-    //   for (var i = 0; i < dreams.length; i++) {
-    //     if (dreams[i].id === parseInt(dreamId)) {
-    //       return dreams[i];
-    //     }
-    //   }
-    //   return null;
-    // };
   }])
 
   .service('getOneEventService', [function() {
@@ -103,12 +100,12 @@ angular.module('capstoneApp.services', [])
     };
   }])
 
-.service('postEventService', ['$http', function($http) {
+.service('postEventService', ['$http', 'dbURL', function($http, dbURL) {
   return {
     submitEvent: function(anEvent) {
       var userID = localStorage.getItem('id');
       anEvent.owner_id = userID;
-      return $http.post('http://localhost:3000/events', anEvent)
+      return $http.post(dbURL.url + '/events', anEvent)
         .then(function(response) {
           // console.log('success response');
           return response;
@@ -120,12 +117,12 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
-.service('putEventService', ['$http', function($http) {
+.service('putEventService', ['$http', 'dbURL', function($http, dbURL) {
   return {
     submitEditEvent: function(thisEvent) {
       console.log(thisEvent);
       // var userID = localStorage.getItem('id');
-      return $http.put('http://localhost:3000/events/' + thisEvent.id, thisEvent)
+      return $http.put(dbURL.url + '/events/' + thisEvent.id, thisEvent)
         .then(function(response) {
           // console.log('success response');
           return response;
@@ -137,12 +134,12 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
-.service('deleteEventService', ['$http', function($http) {
+.service('deleteEventService', ['$http', 'dbURL', function($http, dbURL) {
   return {
     deleteEvent: function(thisEvent) {
       console.log(thisEvent);
       // var userID = localStorage.getItem('id');
-      return $http.delete('http://localhost:3000/events/' + thisEvent.id, thisEvent)
+      return $http.delete(dbURL.url + '/events/' + thisEvent.id, thisEvent)
         .then(function(response) {
           // console.log('success response');
           return response;
@@ -154,11 +151,11 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
-.service('rsvpService', ['$http', function($http) {
+.service('rsvpService', ['$http', 'dbURL', function($http, dbURL) {
   return {
     rsvp: function(anEvent) {
       var userID = localStorage.getItem('id');
-      return $http.post('http://localhost:3000/users/' + userID + '/events', anEvent)
+      return $http.post(dbURL.url + '/users/' + userID + '/events', anEvent)
         .then(function(response) {
           // console.log('success response');
           return response;
@@ -170,11 +167,11 @@ angular.module('capstoneApp.services', [])
   };
 }])
 
-.service('removeRsvpService', ['$http', function($http) {
+.service('removeRsvpService', ['$http', 'dbURL', function($http, dbURL) {
   return {
     removersvp: function(anEvent) {
       var userID = localStorage.getItem('id');
-      return $http.delete('http://localhost:3000/users/' + userID + '/events/' + anEvent.id, anEvent)
+      return $http.delete(dbURL.url + '/users/' + userID + '/events/' + anEvent.id, anEvent)
         .then(function(response) {
           // console.log('success response');
           return response;

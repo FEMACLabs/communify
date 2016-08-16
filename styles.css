@@ -1,6 +1,9 @@
-/*.container {
-  height: inherit;
-}*/
+.container {
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+  background-image: url(/img/mlkmarch.jpeg);
+}
 
 a {
   color: inherit;
@@ -8,11 +11,7 @@ a {
 }
 
 .communify {
-  max-width: 75%;
-  max-height: 450px;
-  /*position: absolute;*/
-  /*margin-left: -37%;*/
-  margin-top: -90%;
+  width: 75%;
 }
 
 .fixed-profile {
@@ -23,9 +22,13 @@ a {
   font-weight: bold;
 }
 
-.main-window {
-  height: 80%;
+.progress {
+  height: 50px;
 }
+
+/*.main-window {
+  height: 80%;
+}*/
 
 .menu-dropdown {
   margin-top: 50px;
@@ -110,11 +113,11 @@ a {
 }
 
 .location-input {
-  width: 85%;
+  width: 84%;
 }
 
 .zip-input {
-  width: 12%;
+  width: 13%;
 }
 
 .shorten-button {
@@ -122,6 +125,11 @@ a {
 }
 
 .noMatch {
+  font-size: 12px;
+}
+
+.error-text {
+  color: rgb(203, 23, 5);
   font-size: 12px;
 }
 
@@ -134,8 +142,10 @@ a {
 
 .mlkmarch {
   width: 100%;
-  max-height: 1100px;
-  margin-top: -20px;
+  /*max-height: 100vh;*/
+  /*height: 100vh;*/
+  /*max-height: 1100px;*/
+  /*margin-top: -20px;*/
 }
 
 .profile-img {
@@ -170,6 +180,14 @@ a {
 
 .rsvp-button {
   width: 100%;
+}
+
+@media (max-width: 599px) {
+
+  .communify {
+    width: 100%;
+  }
+
 }
 
 .dialogdemoBasicUsage #popupContainer {

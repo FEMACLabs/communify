@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('capstoneApp');
+var app = angular.module('communifyApp');
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
