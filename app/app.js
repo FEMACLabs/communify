@@ -6,7 +6,7 @@ angular.module('communifyApp', ['communifyApp.services', 'communifyApp.controlle
   $httpProvider.interceptors.push("AuthInterceptor");
 })
 
-.config(function($mdThemingProvider) {
+.config(function($mdThemingProvider, $locationProvider) {
 
   $mdThemingProvider.theme('default')
   .primaryPalette('red', {
@@ -20,5 +20,7 @@ angular.module('communifyApp', ['communifyApp.services', 'communifyApp.controlle
     'default': '300',
     'hue-1': '100'
   });
+
+  $locationProvider.html5Mode(true);
 
 });

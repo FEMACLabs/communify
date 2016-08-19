@@ -1,8 +1,6 @@
 .container {
   height: 100vh;
   width: 100%;
-  z-index: 1;
-  background-image: url(/img/mlkmarch.jpeg);
 }
 
 a {
@@ -12,10 +10,15 @@ a {
 
 .communify {
   width: 75%;
+  z-index: 1;
 }
 
-.fixed-profile {
+.profile {
   position: fixed;
+}
+
+.events {
+  margin-left: 31%;
 }
 
 .log-button {
@@ -40,7 +43,7 @@ a {
 }
 
 .distance-box {
-  margin: -2px 10px 0 5px;
+  margin-left: 10px;
 }
 
 .margin-bottom {
@@ -74,6 +77,7 @@ a {
 .icon {
   width: 24px;
   height: 24px;
+  margin-right: 5px;
 }
 
 .navbar {
@@ -86,8 +90,9 @@ a {
 }
 
 .start-btn {
-  background-color: #C62828;
+  background-color: #E53935;
   box-shadow: 0 0 7px 2px rgb(185, 185, 185);
+  padding-top: 5px;
 }
 
 .font-white {
@@ -142,10 +147,9 @@ a {
 
 .mlkmarch {
   width: 100%;
-  /*max-height: 100vh;*/
-  /*height: 100vh;*/
-  /*max-height: 1100px;*/
-  /*margin-top: -20px;*/
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
 }
 
 .profile-img {
@@ -182,10 +186,30 @@ a {
   width: 100%;
 }
 
+@media (max-width: 959px) and (min-width: 600px) {
+
+  .profile {
+    position: relative;
+  }
+
+  .events {
+    margin: 0;
+  }
+
+}
+
 @media (max-width: 599px) {
 
   .communify {
     width: 100%;
+  }
+
+  .profile {
+    position: relative;
+  }
+
+  .events {
+    margin: 0;
   }
 
 }
